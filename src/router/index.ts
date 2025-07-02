@@ -30,6 +30,11 @@ const routes = [
         path: '/calendar',
         name: 'calendar',
         component: () => import('../views/calendar/calendar.vue')
+    },
+    {
+        path: '/timestamp',
+        name: 'timestamp',
+        component: () => import('../views/timestamp/timestamp.vue')
     }
 ]
 export const router = createRouter({
