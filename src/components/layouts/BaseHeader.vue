@@ -21,6 +21,7 @@
         <el-menu-item index="5-1" @click="handleChange('/contrast')">代码对比</el-menu-item>
         <el-menu-item index="5-2" @click="handleChange('/calendar')">日历</el-menu-item>
         <el-menu-item index="5-2" @click="handleChange('/timestamp')">时间戳转换</el-menu-item>
+        <el-menu-item index="5-3" @click="handleChange('/color')">颜色转换</el-menu-item>
       </el-sub-menu>
       <!-- <el-menu-item index="0" h="full" class="s-icon">
         <button

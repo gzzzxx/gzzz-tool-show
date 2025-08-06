@@ -35,6 +35,11 @@ const routes = [
         path: '/timestamp',
         name: 'timestamp',
         component: () => import('../views/timestamp/timestamp.vue')
+    },
+    {
+        path: '/color',
+        name: 'color',
+        component: () => import('../views/color/color.vue')
     }
 ]
 export const router = createRouter({

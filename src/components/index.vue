@@ -43,6 +43,9 @@
         <el-col :span="6">
           <el-button type="primary" text bg @click="handleChange('/timestamp')">时间戳转换</el-button>
         </el-col>
+        <el-col :span="6">
+          <el-button type="primary" text bg @click="handleChange('/color')">颜色转换</el-button>
+        </el-col>
       </el-row>
     </div>
   </div>
