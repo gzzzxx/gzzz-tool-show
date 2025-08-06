@@ -18,8 +18,9 @@ function invertColor({ r, g, b, a}: { r: number; g: number; b: number, a: number
   return `rgba(${inverted.r}, ${inverted.g}, ${inverted.b}, ${inverted.a})`;
 }
 
+let isDark = document.documentElement.classList.contains('dark')
 const hasInitialColor = !!searchParams.hex;
-const initialColor = `#${searchParams.hex ?? DEFAULT_COLOR}`;
+const initialColor = `${searchParams.hex ?? isDark ? DEFAULT_COLOR_DARK : DEFAULT_COLOR}`;
 </script>
 
 <script setup lang="ts">
@@ -102,7 +103,7 @@ const onModeChange = (isDark: boolean) => {
 
 <template>
   <div class="wrapper">
-    <div class="fixed-side">
+    <!-- <div class="fixed-side">
       <div class="title text">
         <h1>Vue-color</h1>
       </div>
@@ -127,7 +128,7 @@ const onModeChange = (isDark: boolean) => {
       >
         Get Started &nbsp; 🚀
       </a>
-    </div>
+    </div> -->
     <div class="picker-containers">
       <div class="row">
         <div class="col">
