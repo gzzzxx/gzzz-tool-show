@@ -4,6 +4,7 @@ import { ref, computed, onMounted } from 'vue';
 import JsonPreview from '../../components/json/JsonPreview.vue';
 import JsonEditorVue from 'json-editor-vue'
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css'
+import './home-page.scss'
 
 const text = ref('');
 
@@ -106,5 +107,5 @@ function copyJson() {
   </div>
 </template>
 <style lang="scss" scoped>
-@import './home-page.scss'
+
 </style>
