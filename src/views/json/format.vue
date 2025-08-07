@@ -10,13 +10,13 @@ const text = ref('');
 
 const strings = ref({
   en: {
-    title: 'SON Format',
+    title: 'JSON Format',
     copy: 'Copy',
     reduce: 'Reduce',
     format: 'Format',
   },
   cn: {
-    title: 'SON 格式化',
+    title: 'JSON 格式化',
     copy: '复制',
     reduce: '压缩',
     format: '格式化',
