@@ -1,6 +1,10 @@
 <!--
   src/components/index.vue — home page.
-  Two grids: banner row (1 cell) + "全部工具" heading + tool grid (8 cells).
+  Layout (top to bottom):
+    1. Follow banner grid (1 cell)
+    2. "我的收藏" section — only when the user has at least one favorite
+    3. "全部工具" section — the full catalog
+
   Tool data comes from src/composables/useTools.ts; paths match
   src/router/index.ts verbatim. Visual styling: .it-page-content /
   .it-tool-card / .it-follow-banner (global classes in src/styles/_cards.scss).
@@ -12,6 +16,22 @@
         <FollowBanner />
       </div>
     </div>
+
+    <template v-if="favoriteTools.length > 0">
+      <h3 class="home-page__section-title home-page__section-title--favorites">
+        {{ t('home.section.favorites') }}
+      </h3>
+
+      <div class="home-page__grid home-page__grid--tools">
+        <div
+          v-for="tool in favoriteTools"
+          :key="tool.path"
+          class="home-page__cell"
+        >
+          <ToolCard :tool="tool" />
+        </div>
+      </div>
+    </template>
 
     <h3 class="home-page__section-title">{{ t('home.section.tools') }}</h3>
 
@@ -28,8 +48,10 @@ import { useI18n } from 'vue-i18n'
 import FollowBanner from './cards/FollowBanner.vue'
 import ToolCard from './cards/ToolCard.vue'
 import { useLocalizedTools } from '~/composables/useTools'
+import { useFavorites } from '~/composables/useFavorites'
 
 const { localizedTools } = useLocalizedTools()
+const { favoriteTools } = useFavorites()
 const { t } = useI18n({ useScope: 'global' })
 </script>
 
@@ -74,6 +96,15 @@ const { t } = useI18n({ useScope: 'global' })
     font-weight: 600;
     color: #cbd5e1;
     letter-spacing: 0.02em;
+  }
+
+  // Favorites section header sits closer to the banner than the
+  // "all tools" section does — the section gap variable is 25px
+  // which is too much visual weight between the banner and the
+  // user's first pinned card. Override only when the section is
+  // about favorites.
+  &__section-title--favorites {
+    margin-top: 18px;
   }
 }
 </style>

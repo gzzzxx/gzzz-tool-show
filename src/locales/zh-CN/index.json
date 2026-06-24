@@ -31,14 +31,22 @@
       "convert": "转换",
       "dev": "开发",
       "time": "时间"
-    }
+    },
+    "favorites": "我的收藏"
   },
   "home": {
     "section": {
-      "tools": "全部工具"
+      "tools": "全部工具",
+      "favorites": "我的收藏"
     },
     "banner": {
       "desc": "如果对您有帮助，请 Star {github}、{gitee}，感谢您的支持！"
+    }
+  },
+  "toolcard": {
+    "favorite": {
+      "add": "收藏",
+      "remove": "取消收藏"
     }
   },
   "palette": {

@@ -31,14 +31,22 @@
       "convert": "Convert",
       "dev": "Developer",
       "time": "Time"
-    }
+    },
+    "favorites": "Favorites"
   },
   "home": {
     "section": {
-      "tools": "All Tools"
+      "tools": "All Tools",
+      "favorites": "Favorites"
     },
     "banner": {
       "desc": "If this is helpful, please star us on {github} / {gitee} — thanks for the support!"
+    }
+  },
+  "toolcard": {
+    "favorite": {
+      "add": "Add to favorites",
+      "remove": "Remove from favorites"
     }
   },
   "palette": {

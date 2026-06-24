@@ -22,6 +22,71 @@
     </div>
 
     <div v-show="!isCollapsed" class="base-side__body">
+      <!--
+        "我的收藏" group — pinned to the very top, only visible when
+        the user actually has at least one favorited tool. Mirrors
+        the regular category structure (header + collapsible list)
+        so behavior matches, with a small heart icon prefix to mark
+        it as a different kind of group.
+      -->
+      <div
+        v-if="favoriteTools.length > 0"
+        class="base-side__category base-side__category--favorites"
+      >
+        <button
+          type="button"
+          class="base-side__category-header"
+          :aria-expanded="!isFavoritesCollapsed"
+          @click="isFavoritesCollapsed = !isFavoritesCollapsed"
+        >
+          <el-icon
+            :class="[
+              'base-side__category-arrow',
+              { 'is-collapsed': isFavoritesCollapsed },
+            ]"
+          >
+            <ArrowDown />
+          </el-icon>
+          <svg
+            class="base-side__favorites-icon"
+            :width="14"
+            :height="14"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <span class="base-side__category-name">{{ t('sidebar.favorites') }}</span>
+        </button>
+
+        <transition name="base-side-fade">
+          <ul
+            v-show="!isFavoritesCollapsed"
+            class="base-side__tools"
+          >
+            <li
+              v-for="tool in favoriteTools"
+              :key="tool.path"
+              class="base-side__tool-item"
+            >
+              <router-link
+                :to="tool.path"
+                class="base-side__link"
+                active-class="is-active"
+                @click="emit('navigate', tool.path)"
+              >
+                <span class="base-side__toggle-bar" aria-hidden="true" />
+                <el-icon class="base-side__tool-icon">
+                  <component :is="icons[tool.icon] ?? Document" />
+                </el-icon>
+                <span class="base-side__tool-name">{{ tool.name }}</span>
+              </router-link>
+            </li>
+          </ul>
+        </transition>
+      </div>
+
       <div
         v-for="category in categories"
         :key="category.key"
@@ -92,6 +157,7 @@ import {
 import type { Component } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLocalizedTools } from '~/composables/useTools'
+import { useFavorites } from '~/composables/useFavorites'
 
 withDefaults(
   defineProps<{ isCollapsed?: boolean }>(),
@@ -163,6 +229,20 @@ function toggleCategory(key: string) {
     [key]: !isCategoryCollapsed(key),
   }
 }
+
+// Favorites — pinned to the top of the sidebar when the user has
+// any. Resolved through the locale-aware tool list so each link
+// shows the right translated name. Stale paths (tools removed
+// from the catalog) are dropped at the composable layer.
+const { favoriteTools } = useFavorites()
+
+// Favorites group has its own persisted collapse state so the user
+// can keep it pinned open / closed independently of the regular
+// category groups.
+const isFavoritesCollapsed = useStorage<boolean>(
+  'base-side:collapsed-favorites',
+  false,
+)
 </script>
 
 <style lang="scss" scoped>
@@ -294,6 +374,16 @@ function toggleCategory(key: string) {
 }
 
 .base-side__category { margin-top: 4px; }
+
+// Heart icon prefix on the "我的收藏" group header. Uses the success
+// green from Element Plus so the favorites group reads as
+// semantically different (personal / pinned) at a glance, while
+// still using the existing category header structure.
+.base-side__favorites-icon {
+  flex-shrink: 0;
+  color: var(--el-color-success, #67c23a);
+  margin-left: 2px;
+}
 
 .base-side__category-header {
   display: flex;
