@@ -367,7 +367,7 @@ onUnmounted(() => {
   // search box. pointer-events:none lets clicks fall through to the
   // icon buttons underneath; the search box itself re-enables them.
   position: absolute;
-  left: 50%;
+  left: 45%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
