@@ -37,6 +37,7 @@ declare module 'vue' {
     Logos: typeof import('./components/Logos.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchPalette: typeof import('./components/layouts/SearchPalette.vue')['default']
     SectionTitle: typeof import('./components/cards/SectionTitle.vue')['default']
     ThemeToggle: typeof import('./components/ThemeToggle.vue')['default']
     ToolCard: typeof import('./components/cards/ToolCard.vue')['default']

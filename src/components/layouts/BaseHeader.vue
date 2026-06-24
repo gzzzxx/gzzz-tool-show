@@ -34,15 +34,38 @@
     </div>
 
     <div class="app-header__center">
-      <div class="app-header__search">
-        <el-icon class="app-header__search-icon" :size="16"><Search /></el-icon>
-        <input
-          ref="searchInputRef"
-          type="text"
-          class="app-header__search-input"
-          placeholder="搜索"
+      <div
+        ref="searchWrapRef"
+        class="app-header__search"
+      >
+        <div class="app-header__search-bar">
+          <el-icon class="app-header__search-icon" :size="16"><Search /></el-icon>
+          <input
+            ref="searchInputRef"
+            v-model="searchQuery"
+            type="text"
+            class="app-header__search-input"
+            placeholder="搜索"
+            @focus="paletteOpen = true"
+            @keydown="onSearchKeydown"
+          />
+          <button
+            v-if="searchQuery"
+            type="button"
+            class="app-header__search-clear"
+            aria-label="清空搜索"
+            @mousedown.prevent="onClearSearch"
+          >
+            <el-icon :size="14"><CircleClose /></el-icon>
+          </button>
+          <span v-else class="app-header__kbd">{{ isMac ? '⌘ K' : 'Ctrl K' }}</span>
+        </div>
+        <SearchPalette
+          ref="paletteRef"
+          v-model:query="searchQuery"
+          v-model:open="paletteOpen"
+          @select="onToolSelected"
         />
-        <span class="app-header__kbd">{{ isMac ? '⌘ K' : 'Ctrl K' }}</span>
       </div>
     </div>
 
@@ -113,6 +136,7 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import {
+  CircleClose,
   Expand,
   Fold,
   HomeFilled,
@@ -122,6 +146,8 @@ import {
   Sunny,
 } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
+import SearchPalette from './SearchPalette.vue'
+import { type Tool } from '~/composables/useTools'
 
 defineProps<{ isSiderCollapsed?: boolean }>()
 
@@ -132,9 +158,18 @@ const emit = defineEmits<{
 
 const router = useRouter()
 
-// Search box — visual placeholder only; the input isn't bound to anything
-// yet. ⌘K / Ctrl K focuses the box from anywhere on the page.
+// ----------------------------------------------------------------
+// Search box
+// The input is bound to `searchQuery`; the dropdown is shown by
+// `paletteOpen`. Keyboard navigation (↑↓ Enter Esc) is handled
+// inside SearchPalette.handleKeydown — we just forward the event
+// from the input here so the palette doesn't have to reach for it.
+// ----------------------------------------------------------------
+const searchWrapRef = ref<HTMLDivElement | null>(null)
 const searchInputRef = ref<HTMLInputElement | null>(null)
+const paletteRef = ref<InstanceType<typeof SearchPalette> | null>(null)
+const searchQuery = ref('')
+const paletteOpen = ref(false)
 const isMac = ref(false)
 
 function isHotkey(e: KeyboardEvent) {
@@ -144,7 +179,42 @@ function isHotkey(e: KeyboardEvent) {
 const onKeydown = (e: KeyboardEvent) => {
   if (isHotkey(e)) {
     e.preventDefault()
+    paletteOpen.value = true
     searchInputRef.value?.focus()
+  }
+}
+
+// Forward raw keydown to the palette so it can manage its own
+// active-row + Enter / Esc behavior. The palette's v-model:open
+// flip on Esc will close the dropdown automatically.
+function onSearchKeydown(e: KeyboardEvent) {
+  paletteRef.value?.handleKeydown(e)
+}
+
+function onClearSearch() {
+  searchQuery.value = ''
+  searchInputRef.value?.focus()
+}
+
+function onToolSelected(tool: Tool) {
+  // Selection ends the search session: clear the query, close the
+  // dropdown, release focus from the input, then navigate. The
+  // mousedown.prevent on the list row would otherwise leave the
+  // input focused on the new page with stale text inside.
+  searchQuery.value = ''
+  paletteOpen.value = false
+  searchInputRef.value?.blur()
+  router.push(tool.path)
+}
+
+// Click-outside: close the dropdown when the user clicks anywhere
+// outside the search wrapper. mousedown (not click) so a selection
+// that fires immediately doesn't race with the input blur.
+const onDocumentMouseDown = (e: MouseEvent) => {
+  const target = e.target as Node | null
+  if (!target) return
+  if (searchWrapRef.value && !searchWrapRef.value.contains(target)) {
+    paletteOpen.value = false
   }
 }
 
@@ -172,6 +242,7 @@ onMounted(() => {
   syncThemeFromDom()
 
   window.addEventListener('keydown', onKeydown)
+  document.addEventListener('mousedown', onDocumentMouseDown)
   themeObserver = new MutationObserver(syncThemeFromDom)
   themeObserver.observe(document.documentElement, {
     attributes: true,
@@ -181,6 +252,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeydown)
+  document.removeEventListener('mousedown', onDocumentMouseDown)
   themeObserver?.disconnect()
 })
 </script>
@@ -206,11 +278,10 @@ onUnmounted(() => {
 
 :global(html.dark) .app-header { color: var(--it-text-primary, #f1f5f9); }
 :global(html.dark) .app-header__icon-btn:hover { background: rgba(255, 255, 255, 0.08); }
-:global(html.dark) .app-header__search { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.08); }
-:global(html.dark) .app-header__search:focus-within { background: rgba(255, 255, 255, 0.06); }
+:global(html.dark) .app-header__search-bar { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.08); }
+:global(html.dark) .app-header__search-bar:focus-within { background: rgba(255, 255, 255, 0.06); }
 :global(html.dark) .app-header__kbd { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.6); }
-:global(html.dark) .app-header__lang-text,
-:global(html.dark) .app-header__x-text { color: var(--it-text-secondary, #cbd5e1); }
+:global(html.dark) .app-header__lang-text { color: var(--it-text-secondary, #cbd5e1); }
 
 .app-header__left,
 .app-header__right {
@@ -239,6 +310,12 @@ onUnmounted(() => {
 }
 
 .app-header__search {
+  // Anchoring context for the floating SearchPalette dropdown.
+  // pointer-events: auto re-enables clicks inside the
+  // pointer-events: none .app-header__center wrapper above.
+  position: relative;
+  width: 100%;
+  max-width: 480px;
   pointer-events: auto;
 }
 
@@ -284,14 +361,22 @@ onUnmounted(() => {
 }
 
 .app-header__lang-text { font-size: 13px; font-weight: 500; color: var(--ah-mute); }
-.app-header__x-text { font-size: 16px; color: var(--ah-mute); line-height: 1; }
 
 .app-header__search {
+  // Anchoring context for the floating SearchPalette dropdown.
+  // pointer-events: auto re-enables clicks inside the
+  // pointer-events: none .app-header__center wrapper above.
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  pointer-events: auto;
+}
+
+.app-header__search-bar {
   display: flex;
   align-items: center;
   gap: 8px;
   width: 100%;
-  max-width: 480px;
   height: 36px;
   padding: 0 10px 0 12px;
   background: transparent;
@@ -306,6 +391,35 @@ onUnmounted(() => {
 }
 
 .app-header__search-icon { color: var(--ah-mute); flex-shrink: 0; }
+
+.app-header__search-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.06);
+  border: none;
+  border-radius: 50%;
+  color: var(--ah-mute);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.12);
+    color: var(--it-text-primary, #1e293b);
+  }
+}
+
+:global(html.dark) .app-header__search-clear {
+  background: rgba(255, 255, 255, 0.1);
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+}
 
 .app-header__search-input {
   flex: 1;

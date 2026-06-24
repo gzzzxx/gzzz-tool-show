@@ -44,58 +44,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed, h } from 'vue'
+import { computed } from 'vue'
+import { type Tool } from '~/composables/useTools'
+import { getToolIcon } from '~/components/cards/toolIconRegistry'
 
-interface Tool {
-  path: string
-  name: string
-  desc: string
-  /** key into the iconRegistry below */
-  icon?: string
-  isNew?: boolean
-}
-
-const props = withDefaults(defineProps<{ tool: Tool }>(), {
-  icon: 'document',
-})
+const props = defineProps<{ tool: Tool }>()
 
 const iconSize = 28
 
-// We render the icon as a render function so we can use Vue's <component>
-// without needing @element-plus/icons-vue. Each entry is a tiny inline
-// SVG path — keeps the bundle small and the markup simple.
-const iconRegistry: Record<string, ReturnType<typeof h>> = {
-  lock: () => h('path', { d: 'M5 11h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1zM7 11V7a5 5 0 0 1 10 0v4' }),
-  coin: () => h('path', { d: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' }),
-  timer: () => h('g', null, [
-    h('path', { d: 'M12 6v6l4 2' }),
-    h('circle', { cx: 12, cy: 14, r: 8 }),
-    h('path', { d: 'M9 2h6' }),
-  ]),
-  brush: () => h('g', null, [
-    h('path', { d: 'M3 21c0-3 2-5 5-5h8c3 0 5 2 5 5' }),
-    h('path', { d: 'M14 3l7 7-9 9H5v-7z' }),
-  ]),
-  document: () => h('g', null, [
-    h('path', { d: 'M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z' }),
-    h('path', { d: 'M14 3v6h6' }),
-  ]),
-  view: () => h('g', null, [
-    h('path', { d: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z' }),
-    h('circle', { cx: 12, cy: 12, r: 3 }),
-  ]),
-  calendar: () => h('g', null, [
-    h('rect', { x: 3, y: 5, width: 18, height: 16, rx: 2 }),
-    h('path', { d: 'M3 10h18M8 3v4M16 3v4' }),
-  ]),
-  code: () => h('g', null, [
-    h('path', { d: 'M8 6L2 12l6 6M16 6l6 6-6 6' }),
-  ]),
-}
-
-const iconPath = computed(() =>
-  iconRegistry[props.tool.icon ?? 'document'] ?? iconRegistry.document,
-)
+// Icons come from the shared registry (see toolIconRegistry.ts); the
+// home grid and the search palette both render the same way so they
+// never drift apart.
+const iconPath = computed(() => getToolIcon(props.tool.icon))
 </script>
 
 <style lang="scss" scoped>

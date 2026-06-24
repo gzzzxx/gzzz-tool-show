@@ -1,9 +1,9 @@
 <!--
   src/components/index.vue — home page.
   Two grids: banner row (1 cell) + "全部工具" heading + tool grid (8 cells).
-  Tool data is hard-coded; paths match src/router/index.ts verbatim.
-  Visual styling: .it-page-content / .it-tool-card / .it-follow-banner
-  (global classes in src/styles/_cards.scss).
+  Tool data comes from src/composables/useTools.ts; paths match
+  src/router/index.ts verbatim. Visual styling: .it-page-content /
+  .it-tool-card / .it-follow-banner (global classes in src/styles/_cards.scss).
 -->
 <template>
   <div class="it-page-content home-page">
@@ -26,17 +26,7 @@
 <script setup lang="ts">
 import FollowBanner from './cards/FollowBanner.vue'
 import ToolCard from './cards/ToolCard.vue'
-
-const tools = [
-  { path: '/encryption/SM4', name: 'SM4 加密/解密', desc: '国密 SM4 算法,支持 CBC/ECB 多种模式,密钥 128 位', icon: 'lock' },
-  { path: '/encryption/AES', name: 'AES 加密/解密', desc: 'AES 对称加密,支持 128/192/256 位密钥', icon: 'lock' },
-  { path: '/base64', name: 'Base64 转换', desc: '字符串/文件 Base64 编码解码,支持中文', icon: 'coin' },
-  { path: '/timestamp', name: '时间戳转换', desc: 'Unix 时间戳与日期互转,支持秒/毫秒', icon: 'timer' },
-  { path: '/color', name: '颜色转换', desc: 'HEX/RGB/HSL 互转,实时预览', icon: 'brush' },
-  { path: '/format', name: 'JSON 格式化', desc: 'JSON 格式化、压缩、校验、字段提取', icon: 'document' },
-  { path: '/contrast', name: '代码对比', desc: '文本/代码 diff,支持多种语言高亮', icon: 'code' },
-  { path: '/calendar', name: '日历', desc: '日期查询、农历转换、年历', icon: 'calendar' },
-]
+import { tools } from '~/composables/useTools'
 </script>
 
 <style lang="scss" scoped>
