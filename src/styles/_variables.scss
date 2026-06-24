@@ -1,0 +1,93 @@
+// =====================================================================
+// _variables.scss — shared design tokens for the it-tools-style theme
+// Aligned with docs/it-tools-clone/design.md §2.
+// Two layers:
+//   (1) SCSS variables ($it-radius, $it-card-padding, ...) used at
+//       compile time inside our own *.scss files.
+//   (2) CSS custom properties (--it-*) used at runtime so that
+//       element-plus <el-card> / utility classes / runtime theming
+//       can read the same tokens. The light/dark split is handled
+//       purely with CSS variables — no Sass mix.
+// =====================================================================
+
+// --- SCSS tokens (compile-time, not theme-aware) ----------------------
+$it-radius:        8px;   // card / banner / button corner
+$it-card-padding:  16px;  // padding inside a tool card
+$it-grid-gap:      12px;  // gap between cards in the grid
+$it-section-gap:   25px;  // top spacing before a new section title
+$it-page-padding:  26px;  // horizontal padding for the page container
+
+$it-radius-sm:     4px;
+$it-radius-lg:     12px;
+
+// --- CSS custom properties (runtime, theme-aware) ---------------------
+// Light mode (default) — values come straight from design.md §2.1
+:root {
+  // Surfaces
+  --it-bg:               #f1f5f9;
+  --it-bg-elevated:      #ffffff;
+
+  // Text
+  --it-text-primary:     #1e293b;
+  --it-text-secondary:   #64748b;
+  --it-text-tertiary:    #94a3b8;
+
+  // Borders & shadows
+  --it-border:           #e2e8f0;
+  --it-card-shadow:        0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --it-card-shadow-hover:  0 4px 6px -1px rgb(0 0 0 / 0.1),
+                           0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+  // Sidebar (light)
+  --it-sider-bg:        #ffffff;
+  --it-sider-text:      #1e293b;
+  --it-sider-text-mute: #64748b;
+  --it-sider-hover:     rgba(0, 0, 0, 0.06);
+  --it-sider-border:    #e2e8f0;
+
+  // Banner (always dark gradient, theme-agnostic — fixed colors)
+  --it-follow-banner-bg: linear-gradient(
+    48deg,
+    #0369a1 0%,
+    #0284c7 60%,
+    #38bdf8 100%
+  );
+
+  // Sizing / spacing aliases (also exposed as CSS vars for runtime use)
+  --it-radius:        #{$it-radius};
+  --it-card-padding:  #{$it-card-padding};
+  --it-grid-gap:      #{$it-grid-gap};
+  --it-section-gap:   #{$it-section-gap};
+  --it-page-padding:  #{$it-page-padding};
+}
+
+// Dark mode — toggled by adding `html.dark` (set in App.vue from
+// the theme toggle, see src/components/layouts/BaseHeader.vue).
+html.dark {
+  --it-bg:               #1c1c1c;
+  --it-bg-elevated:      #232323;
+
+  --it-text-primary:     #f1f5f9;
+  --it-text-secondary:   #cbd5e1;
+  --it-text-tertiary:    #94a3b8;
+
+  --it-border:           #282828;
+  --it-card-shadow:        0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --it-card-shadow-hover:  0 4px 12px rgb(0 0 0 / 0.4);
+
+  // Sidebar (dark)
+  --it-sider-bg:        #1a1a1a;
+  --it-sider-text:      #e2e8f0;
+  --it-sider-text-mute: rgba(226, 232, 240, 0.55);
+  --it-sider-hover:     rgba(255, 255, 255, 0.06);
+  --it-sider-border:    rgba(255, 255, 255, 0.06);
+
+  // Banner stays the same — it's always the dark gradient, regardless
+  // of light/dark mode (matches ColoredCard.vue in the reference repo).
+  --it-follow-banner-bg: linear-gradient(
+    48deg,
+    #0369a1 0%,
+    #0284c7 60%,
+    #38bdf8 100%
+  );
+}

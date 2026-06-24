@@ -40,6 +40,11 @@ const routes = [
         path: '/color',
         name: 'color',
         component: () => import('../views/color/color.vue')
+    },
+    {
+        path: '/about',
+        name: 'about',
+        component: () => import('../views/about/about.vue')
     }
 ]
 export const router = createRouter({

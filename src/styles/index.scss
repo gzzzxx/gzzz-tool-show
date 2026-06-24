@@ -1,25 +1,66 @@
-// import dark theme
+// =====================================================================
+// index.scss — global stylesheet entry point
+// Imported once from src/main.ts.
+//
+// Order matters:
+//   1. element-plus dark theme variables  (provides --el-color-* etc.)
+//   2. our own _variables / _cards       (provides --it-* tokens)
+//   3. global resets & link styles       (consume both layers above)
+//
+// Important: we intentionally do NOT override --el-color-primary. The
+// user has decided to keep the default Element Plus blue as the theme
+// accent; tool cards only *reference* it via `var(--el-color-primary)`
+// for the hover-border effect.
+// =====================================================================
+
+// 1. Element Plus dark theme (CSS variable layer — toggled by html.dark)
 @use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
 
-// :root {
-//   --ep-color-primary: red;
-// }
+// 2. Shared design tokens (SCSS + CSS custom properties)
+@use "./variables" as *;
+// 3. Reusable layout primitives (cards / banner / section title)
+@use "./cards" as *;
+
+// ---------------------------------------------------------------------
+// Global resets
+// ---------------------------------------------------------------------
+html,
+body {
+  background-color: var(--it-bg);
+  color: var(--it-text-primary);
+}
 
 body {
-  font-family: Inter, system-ui, Avenir, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: Inter, system-ui, -apple-system, "Helvetica Neue",
+    "PingFang SC", "Microsoft YaHei", "微软雅黑", Helvetica, Arial,
+    sans-serif;
+  font-weight: 400; // base weight; titles bump to 500 / 600 explicitly
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
 }
 
+// ---------------------------------------------------------------------
+// Global link style
+// Inherit Element Plus primary for the default link color so we stay
+// consistent with the rest of the UI (ElButton / ElTag etc.).
+// ---------------------------------------------------------------------
 a {
-  color: var(--ep-color-primary);
+  color: var(--el-color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--el-color-primary-light-3);
+  }
 }
 
+// ---------------------------------------------------------------------
+// Inline <code> chips — keep the existing project style (subtle tint).
+// ---------------------------------------------------------------------
 code {
   border-radius: 2px;
   padding: 2px 4px;
-  background-color: var(--ep-color-primary-light-9);
-  color: var(--ep-color-primary);
+  background-color: var(--el-color-primary-light-9);
+  color: var(--el-color-primary);
 }

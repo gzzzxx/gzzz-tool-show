@@ -22,15 +22,6 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <!-- <el-col :span="3">
-        <el-form-item label="主题">
-          <el-select v-model="form.theme" style="width: 120px">
-            <el-option label="dark" value="dark" />
-            <el-option label="light" value="light" />
-            <el-option label="custom" value="custom" />
-          </el-select>
-        </el-form-item>
-      </el-col> -->
       <el-col :span="3">
         <el-form-item>
           <el-tooltip placement="top" content="折叠未更改区域">
@@ -52,7 +43,7 @@
     <Diff
       id="diff"
       :mode="form.mode"
-      :theme="form.theme"
+      :theme="theme"
       :language="form.type"
       :prev="form.prev"
       :current="form.current"
@@ -62,31 +53,36 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, onMounted } from "vue";
+import { reactive, computed, watch, nextTick } from "vue";
+import { useIsDark } from '../../composables/useIsDark'
+
+const isDark = useIsDark()
+
+// Theme follows the site-wide toggle. vue-diff applies its colors via the
+// vue-diff-theme-{dark|light} class on the wrapper, so we keep that in sync
+// here too — the prop alone doesn't repaint when the user toggles later.
+const theme = computed(() => (isDark.value ? 'dark' : 'light'))
 
 const form = reactive({
   type: "javascript",
   mode: "split",
-  theme: "dark",
   prev: "",
   current: "",
   folding: false,
 });
 
-onMounted(() => {
-  let isDark: boolean
-
-  const root = document.documentElement
-  isDark = root.classList.contains('dark')
-  const d = document.getElementById('diff')
-  if (d != null) {
-    if (isDark) {
-      d.className = 'vue-diff-wrapper vue-diff-mode-split vue-diff-theme-dark'
-    } else {
-      d.className = 'vue-diff-wrapper vue-diff-mode-split vue-diff-theme-light'
-    }
-  }
-});
+watch(
+  [isDark, () => form.mode],
+  ([dark, mode]) => {
+    nextTick(() => {
+      const d = document.getElementById('diff')
+      if (d) {
+        d.className = `vue-diff-wrapper vue-diff-mode-${mode} vue-diff-theme-${dark ? 'dark' : 'light'}`
+      }
+    })
+  },
+  { immediate: true, flush: 'post' },
+)
 </script>
 
 <style lang="scss" scoped>

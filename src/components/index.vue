@@ -1,80 +1,85 @@
+<!--
+  src/components/index.vue — home page.
+  Two grids: banner row (1 cell) + "全部工具" heading + tool grid (8 cells).
+  Tool data is hard-coded; paths match src/router/index.ts verbatim.
+  Visual styling: .it-page-content / .it-tool-card / .it-follow-banner
+  (global classes in src/styles/_cards.scss).
+-->
 <template>
+  <div class="it-page-content home-page">
+    <div class="home-page__grid home-page__grid--with-banner">
+      <div class="home-page__cell home-page__cell--banner">
+        <FollowBanner />
+      </div>
+    </div>
 
-  <!-- <img
-    src="../images/home-page.png"
-    alt="banner"
-    class="mobile-banner"
-    style="width: 600px;margin-top: 20px;"
-  /> -->
+    <h3 class="home-page__section-title">全部工具</h3>
 
-  <div class="inner">
-    <h1>程序开发常用工具</h1>
-    <p>SM4加解密 / AES加解密 / JSON格式化 / Base64转换 / 代码对比 ...</p>
-    <span>如果对您有帮助，请将其分享给您的朋友，给我们 </span><span color="#e3b341">⭐ Star</span> 。<span>感谢您的支持！</span>
-    <p align="center">
-      <a href="https://github.com/gzzzxx/gzzz-tool-show"><img src="https://img.shields.io/badge/GitHub-gzzzxx-blue?logo=github" /></a>
-      <a style="padding-left: 10px;" href="https://gitee.com/gzzzxx/gzzz-tool-show"><img src="https://img.shields.io/badge/Gitee-gzzzxx-yellow?logo=gitee&logoColor=rgb(199, 29, 35)" /></a>
-    </p>
-    <el-row style="padding-left: 30px;padding-right: 30px;">
-      <el-divider />
-    </el-row>
-    <div type="flex" align="middle">
-      <el-row style="width: 60%">
-        <el-col :span="6">
-          <el-button type="primary" text bg @click="handleChange('/encryption/SM4')">SM4加解密</el-button>
-        </el-col>
-        <el-col :span="6">
-          <el-button type="primary" text bg @click="handleChange('/encryption/AES')">AES加解密</el-button>
-        </el-col>
-        <el-col :span="6">
-          <el-button type="primary" text bg @click="handleChange('/format')">JSON格式化</el-button>
-        </el-col>
-        <el-col :span="6">
-          <el-button type="primary" text bg @click="handleChange('/base64')">Base64转换</el-button>
-        </el-col>
-      </el-row>
-      <el-row style="width: 60%;margin-top: 20px;">
-        <el-col :span="6">
-          <el-button type="primary" text bg @click="handleChange('/contrast')">代码对比</el-button>
-        </el-col>
-        <el-col :span="6">
-          <el-button type="primary" text bg @click="handleChange('/calendar')">日历</el-button>
-        </el-col>
-        <el-col :span="6">
-          <el-button type="primary" text bg @click="handleChange('/timestamp')">时间戳转换</el-button>
-        </el-col>
-        <el-col :span="6">
-          <el-button type="primary" text bg @click="handleChange('/color')">颜色转换</el-button>
-        </el-col>
-      </el-row>
+    <div class="home-page__grid home-page__grid--tools">
+      <div v-for="tool in tools" :key="tool.path" class="home-page__cell">
+        <ToolCard :tool="tool" />
+      </div>
     </div>
   </div>
-  
-  <footer>
-    <el-link style="color: #4f4f4f;" href="https://beian.miit.gov.cn/">京ICP备2023038054号</el-link>
-  </footer>
-  
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-const router = useRouter();
+import FollowBanner from './cards/FollowBanner.vue'
+import ToolCard from './cards/ToolCard.vue'
 
-const handleChange = (_val: any) => {
-  if (_val == 1) {
-    router.push("/");
-  } else {
-    router.push(_val);
-  }
-};
+const tools = [
+  { path: '/encryption/SM4', name: 'SM4 加密/解密', desc: '国密 SM4 算法,支持 CBC/ECB 多种模式,密钥 128 位', icon: 'lock' },
+  { path: '/encryption/AES', name: 'AES 加密/解密', desc: 'AES 对称加密,支持 128/192/256 位密钥', icon: 'lock' },
+  { path: '/base64', name: 'Base64 转换', desc: '字符串/文件 Base64 编码解码,支持中文', icon: 'coin' },
+  { path: '/timestamp', name: '时间戳转换', desc: 'Unix 时间戳与日期互转,支持秒/毫秒', icon: 'timer' },
+  { path: '/color', name: '颜色转换', desc: 'HEX/RGB/HSL 互转,实时预览', icon: 'brush' },
+  { path: '/format', name: 'JSON 格式化', desc: 'JSON 格式化、压缩、校验、字段提取', icon: 'document' },
+  { path: '/contrast', name: '代码对比', desc: '文本/代码 diff,支持多种语言高亮', icon: 'code' },
+  { path: '/calendar', name: '日历', desc: '日期查询、农历转换、年历', icon: 'calendar' },
+]
 </script>
 
-<style>
-.inner {
-  min-height: calc(100vh - 120px);
-  position: relative;
-}
-.ep-button {
-  width: 80%;
+<style lang="scss" scoped>
+// We override .it-page-content's default horizontal padding (26px) with a
+// tighter ~16px gutter; the cards themselves already have internal padding.
+.home-page {
+  padding: 12px 16px 32px;
+
+  // 1fr → 2fr → 3fr → 4fr; banner grid mirrors the tool grid so the banner
+  // sits in column 1 visually.
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 12px;
+    row-gap: 12px;
+  }
+  &__grid--with-banner,
+  &__grid--tools {
+    @media (min-width: 640px)  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (min-width: 768px)  { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (min-width: 1280px) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  &__cell {
+    min-width: 0;
+    display: flex;
+    align-self: stretch;
+  }
+
+  // Pin the banner to column 1 on >= 1280px. `align-self: start` keeps the
+  // cell from stretching to match the banner's natural height, which would
+  // push the section title off screen.
+  &__cell--banner {
+    @media (min-width: 1280px) { grid-column: 1; }
+    align-self: start;
+  }
+
+  &__section-title {
+    margin: 25px 0 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #cbd5e1;
+    letter-spacing: 0.02em;
+  }
 }
 </style>

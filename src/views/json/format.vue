@@ -1,12 +1,21 @@
 <script lang="ts" setup>
 
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import JsonPreview from '../../components/json/JsonPreview.vue';
 import JsonEditorVue from 'json-editor-vue'
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css'
 import './home-page.scss'
+import { useIsDark } from '../../composables/useIsDark'
 
 const text = ref('');
+
+const isDark = useIsDark()
+
+// vanilla-jsoneditor ships its dark theme via the .jse-theme-dark root
+// class; the light theme is the default (no extra class / css needed).
+const editorClass = computed(() =>
+  isDark.value ? 'my-json-editor jse-theme-dark' : 'my-json-editor',
+)
 
 const strings = ref({
   en: {
@@ -21,21 +30,6 @@ const strings = ref({
     reduce: '压缩',
     format: '格式化',
   },
-});
-
-onMounted(() => {
-  let isDark: boolean
-
-  const root = document.documentElement
-  isDark = root.classList.contains('dark')
-  const j = document.getElementById('JsonEditorVue')
-  if (j != null) {
-    if (isDark) {
-      j.className = 'my-json-editor jse-theme-dark'
-    } else {
-      j.className = 'my-json-editor'
-    }
-  }
 });
 
 const local = computed(() => {
@@ -93,7 +87,7 @@ function copyJson() {
         /> -->
         <JsonEditorVue
           id="JsonEditorVue"
-          class="my-json-editor jse-theme-dark"
+          :class="editorClass"
           mode="text"
           v-model="text"
           v-bind="{/* local props & attrs */}"
