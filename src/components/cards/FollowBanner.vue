@@ -1,12 +1,14 @@
 <!--
   FollowBanner.vue — the "Follow us on GitHub" call-out card on the
   home page. Mirrors it-tools' ColoredCard.vue: a heart icon, 16/500
-  title, and a 2-line description with inline GitHub / X / Gitee
-  links. Background is the teal→green gradient, theme-agnostic.
+  title, and a 2-line description with inline GitHub / Gitee links.
+  Background is the teal→green gradient, theme-agnostic.
 
-  No el-card / no el-icon — we use a plain <a> wrapper plus inline
-  SVG. The global .it-follow-banner class in src/styles/_cards.scss
-  owns all visuals.
+  Uses vue-i18n's <i18n-t> component so the full sentence (including
+  the separators `、` vs `/` and the trailing "感谢您的支持！" vs
+  "— thanks for the support!") lives in JSON, not in the template.
+  locales/index.ts filters the [intlify] "Not found parent scope"
+  dev warning this component fires.
 -->
 <template>
   <a
@@ -31,19 +33,22 @@
       {{ title }}
     </h3>
     <div class="it-follow-banner__desc follow-banner__desc">
-      如果对您有帮助，请 Star
-      <a
-        href="https://github.com/gzzzxx/gzzz-tool-show"
-        target="_blank"
-        rel="noopener"
-      >GitHub</a>
-      、
-      <a
-        href="https://gitee.com/gzzzxx/gzzz-tool-show"
-        target="_blank"
-        rel="noopener"
-      >Gitee</a>
-      ，感谢您的支持！
+      <i18n-t keypath="home.banner.desc" tag="span">
+        <template #github>
+          <a
+            href="https://github.com/gzzzxx/gzzz-tool-show"
+            target="_blank"
+            rel="noopener"
+          >GitHub</a>
+        </template>
+        <template #gitee>
+          <a
+            href="https://gitee.com/gzzzxx/gzzz-tool-show"
+            target="_blank"
+            rel="noopener"
+          >Gitee</a>
+        </template>
+      </i18n-t>
     </div>
   </a>
 </template>

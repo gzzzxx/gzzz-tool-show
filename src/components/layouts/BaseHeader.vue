@@ -8,11 +8,11 @@
 <template>
   <header class="app-header">
     <div class="app-header__left">
-      <el-tooltip content="折叠/展开侧栏" placement="bottom">
+      <el-tooltip :content="toggleSiderTooltip" placement="bottom">
         <button
           type="button"
           class="app-header__icon-btn"
-          :aria-label="isSiderCollapsed ? '展开侧栏' : '折叠侧栏'"
+          :aria-label="toggleSiderTooltip"
           @click="emit('toggle-sider')"
         >
           <el-icon :size="20">
@@ -21,11 +21,11 @@
         </button>
       </el-tooltip>
 
-      <el-tooltip content="首页" placement="bottom">
+      <el-tooltip :content="t('header.home.tooltip')" placement="bottom">
         <button
           type="button"
           class="app-header__icon-btn"
-          aria-label="首页"
+          :aria-label="t('header.home.tooltip')"
           @click="router.push('/')"
         >
           <el-icon :size="20"><HomeFilled /></el-icon>
@@ -45,7 +45,7 @@
             v-model="searchQuery"
             type="text"
             class="app-header__search-input"
-            placeholder="搜索"
+            :placeholder="t('header.search.placeholder')"
             @focus="paletteOpen = true"
             @keydown="onSearchKeydown"
           />
@@ -53,7 +53,7 @@
             v-if="searchQuery"
             type="button"
             class="app-header__search-clear"
-            aria-label="清空搜索"
+            :aria-label="t('header.search.clearAria')"
             @mousedown.prevent="onClearSearch"
           >
             <el-icon :size="14"><CircleClose /></el-icon>
@@ -70,15 +70,45 @@
     </div>
 
     <div class="app-header__right">
-      <el-tooltip content="语言" placement="bottom">
-        <button class="app-header__icon-btn" aria-label="语言">
-          <span class="app-header__lang-text">中文</span>
-        </button>
+      <el-tooltip :content="t('header.lang.tooltip')" placement="bottom">
+        <el-dropdown
+          trigger="click"
+          @command="onLangPick"
+        >
+          <button
+            type="button"
+            class="app-header__icon-btn app-header__lang-btn"
+            :aria-label="t('header.lang.tooltip')"
+          >
+            <span class="app-header__lang-text">{{ currentLangLabel }}</span>
+          </button>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item
+                v-for="opt in langOptions"
+                :key="opt.value"
+                :command="opt.value"
+                :disabled="opt.value === locale"
+              >
+                <span class="app-header__lang-item">
+                  <span class="app-header__lang-item-label">{{ opt.label }}</span>
+                  <el-icon
+                    v-if="opt.value === locale"
+                    :size="14"
+                    class="app-header__lang-item-check"
+                  >
+                    <Check />
+                  </el-icon>
+                </span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </el-tooltip>
 
       <el-tooltip content="GitHub" placement="bottom">
         <a
-          class="app-header__icon-btn"
+          class="app-header__icon-btn app-header__icon-btn--hide-mobile"
           href="https://github.com/gzzzxx/gzzz-tool-show"
           target="_blank"
           rel="noopener noreferrer"
@@ -92,22 +122,22 @@
         </a>
       </el-tooltip>
 
-      <el-tooltip content="关于" placement="bottom">
+      <el-tooltip :content="t('header.about.tooltip')" placement="bottom">
         <button
           type="button"
-          class="app-header__icon-btn"
-          aria-label="关于"
+          class="app-header__icon-btn app-header__icon-btn--hide-mobile"
+          :aria-label="t('header.about.tooltip')"
           @click="router.push('/about')"
         >
           <el-icon :size="18"><InfoFilled /></el-icon>
         </button>
       </el-tooltip>
 
-      <el-tooltip :content="isDark ? '切换为浅色' : '切换为深色'" placement="bottom">
+      <el-tooltip :content="themeTooltip" placement="bottom">
         <button
           type="button"
           class="app-header__icon-btn"
-          :aria-label="isDark ? '切换为浅色' : '切换为深色'"
+          :aria-label="themeTooltip"
           @click="onThemeClick"
         >
           <el-icon :size="18">
@@ -119,10 +149,10 @@
       <button
         class="app-header__sponsor-btn"
         type="button"
-        aria-label="前往项目 GitHub 仓库"
+        :aria-label="t('common.sponsor')"
         @click="goGithub"
       >
-        <span class="app-header__sponsor-text">赞助</span>
+        <span class="app-header__sponsor-text">{{ t('common.sponsor') }}</span>
         <span class="app-header__sponsor-heart" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -134,8 +164,9 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import {
+  Check,
   CircleClose,
   Expand,
   Fold,
@@ -145,11 +176,13 @@ import {
   Search,
   Sunny,
 } from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import SearchPalette from './SearchPalette.vue'
 import { type Tool } from '~/composables/useTools'
+import type { AppLocale } from '~/locales'
 
-defineProps<{ isSiderCollapsed?: boolean }>()
+const props = defineProps<{ isSiderCollapsed?: boolean }>()
 
 const emit = defineEmits<{
   (e: 'toggle-sider'): void
@@ -157,6 +190,39 @@ const emit = defineEmits<{
 }>()
 
 const router = useRouter()
+const { t, locale } = useI18n({ useScope: 'global' })
+
+// ----------------------------------------------------------------
+// Locale (language switch). `useI18n({ useScope: 'global' })` gives
+// us the top-level locale ref — the same one App.vue and the locale
+// bootstrap watch for persistence. Setting it here flips the whole
+// app's UI in one go.
+// ----------------------------------------------------------------
+
+// Menu labels are intentionally fixed at "中文 / English" so the
+// dropdown is language-agnostic — the switcher itself doesn't
+// translate.
+const langOptions: { value: AppLocale; label: string }[] = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' },
+]
+// "current language's own name" — driven by i18n so the trigger
+// reads "中文" in zh-CN mode, "English" in en-US mode.
+const currentLangLabel = computed(() => t(`lang.${locale.value}`))
+function onLangPick(value: AppLocale) {
+  locale.value = value
+}
+
+// Per-tooltip computeds: same string is used as both `content` and
+// `aria-label` (screen readers don't need the icon to announce what
+// the button does, but the aria-label and visible tooltip should
+// stay in sync). The about button only uses one t() key, so it
+// doesn't need a computed wrapper.
+const toggleSiderTooltip = computed(() =>
+  props.isSiderCollapsed
+    ? t('header.search.toggleSider.expand')
+    : t('header.search.toggleSider.collapse'),
+)
 
 // ----------------------------------------------------------------
 // Search box
@@ -224,6 +290,9 @@ const isDark = ref(false)
 const syncThemeFromDom = () => {
   isDark.value = document.documentElement.classList.contains('dark')
 }
+const themeTooltip = computed(() =>
+  isDark.value ? t('common.theme.light') : t('common.theme.dark'),
+)
 const onThemeClick = (event: MouseEvent) => {
   syncThemeFromDom()
   emit('toggle-theme', { clientX: event.clientX, clientY: event.clientY })
@@ -361,6 +430,21 @@ onUnmounted(() => {
 }
 
 .app-header__lang-text { font-size: 13px; font-weight: 500; color: var(--ah-mute); }
+
+// Dropdown item — keep the check mark on the right of the label so the
+// active option is obvious in either direction.
+.app-header__lang-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 100px;
+}
+.app-header__lang-item-check { color: var(--el-color-primary, #409eff); }
+
+// Strip the el-dropdown's caret icon — our button uses the language
+// label as the only affordance, an extra caret looks noisy.
+.app-header__lang-btn.el-tooltip__trigger > :deep(.el-dropdown__caret-button),
+.app-header__lang-btn :deep(.el-dropdown__caret) { display: none; }
 
 .app-header__search {
   // Anchoring context for the floating SearchPalette dropdown.
@@ -512,9 +596,7 @@ onUnmounted(() => {
 @media (max-width: 767.98px) {
   .app-header { padding: 0 12px; gap: 4px; }
   .app-header__search,
-  .app-header__icon-btn[aria-label="GitHub 仓库"],
-  .app-header__icon-btn[aria-label="X (Twitter)"],
-  .app-header__icon-btn[aria-label="关于"] {
+  .app-header__icon-btn--hide-mobile {
     display: none;
   }
 }

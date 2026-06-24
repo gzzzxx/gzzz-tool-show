@@ -4,7 +4,7 @@
   view-transition theme toggle. BaseHeader / BaseSide are dumb render-only.
 -->
 <template>
-  <el-config-provider namespace="ep" :locale="zhCn">
+  <el-config-provider namespace="ep" :locale="elLocale">
     <div :class="['app-root', { 'is-mobile': isMobile }]">
       <aside
         v-if="!isMobile"
@@ -43,14 +43,19 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
-import lang from 'element-plus/es/locale/lang/zh-cn'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import en from 'element-plus/es/locale/lang/en'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 export default {
   setup () {
-    const zhCn = lang
+    // Element Plus' built-in locale dictionary — picked per active
+    // language so el-pagination / el-table / etc. flip with our toggle.
+    const { locale } = useI18n({ useScope: 'global' })
+    const elLocale = computed(() => (locale.value === 'en-US' ? en : zhCn))
     const router = useRouter()
 
     // lg-1 boundary per it-tools design spec.
@@ -120,7 +125,7 @@ export default {
     }
 
     return {
-      zhCn,
+      elLocale,
       isMobile,
       isSiderCollapsed,
       drawerVisible,

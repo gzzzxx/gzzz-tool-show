@@ -14,18 +14,18 @@
   <transition name="search-palette-fade">
     <div v-if="open" class="search-palette" @mousedown.stop>
       <div v-if="hasQuery" class="search-palette__header">
-        <h3 class="search-palette__title">Tools</h3>
+        <h3 class="search-palette__title">{{ t('palette.title') }}</h3>
         <span v-if="filtered.length > 0" class="search-palette__count">{{ filtered.length }}</span>
       </div>
 
       <div v-if="!hasQuery" class="search-palette__empty search-palette__empty--hint">
         <el-icon :size="18"><Search /></el-icon>
-        <span>输入关键字开始搜索</span>
+        <span>{{ t('palette.hint.empty') }}</span>
       </div>
 
       <div v-else-if="filtered.length === 0" class="search-palette__empty">
         <el-icon :size="20"><Search /></el-icon>
-        <span>没找到匹配 “{{ query }}” 的工具</span>
+        <span>{{ noResultText }}</span>
       </div>
 
       <ul v-else class="search-palette__list" role="listbox">
@@ -71,14 +71,14 @@
       <div class="search-palette__footer">
         <template v-if="hasQuery && filtered.length > 0">
           <span class="search-palette__hint">
-            <kbd>↑</kbd><kbd>↓</kbd> 选择
+            <kbd>↑</kbd><kbd>↓</kbd> {{ t('palette.hint.nav') }}
           </span>
           <span class="search-palette__hint">
-            <kbd>↵</kbd> 打开
+            <kbd>↵</kbd> {{ t('palette.hint.open') }}
           </span>
         </template>
         <span class="search-palette__hint">
-          <kbd>Esc</kbd> 关闭
+          <kbd>Esc</kbd> {{ t('palette.hint.close') }}
         </span>
       </div>
     </div>
@@ -88,7 +88,8 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
 import { Search, Right } from '@element-plus/icons-vue'
-import { searchTools, type Tool } from '~/composables/useTools'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedTools, type Tool } from '~/composables/useTools'
 import { getToolIcon } from '~/components/cards/toolIconRegistry'
 
 const props = defineProps<{
@@ -107,11 +108,31 @@ const emit = defineEmits<{
 // Has the user actually typed something? Empty / whitespace-only
 // doesn't count — the palette shows a "start typing" hint instead of
 // dropping the entire tool list on them the moment they focus.
+const { t } = useI18n({ useScope: 'global' })
 const hasQuery = computed(() => props.query.trim().length > 0)
 
+// "No result" copy interpolates the query. vue-i18n supports
+// named interpolation natively: `t('key', { q: 'foo' })` replaces
+// `{q}` in the message.
+const noResultText = computed(() => t('palette.hint.noResult', { q: props.query }))
+
 // Filtered list. Cap to 20 entries so a short query like "a" doesn't
-// render 50+ items in the dropdown.
-const filtered = computed<Tool[]>(() => searchTools(props.query).slice(0, 20))
+// render 50+ items in the dropdown. Use the locale-aware tool list so
+// the rendered name/desc match what the home grid shows.
+const { localizedTools } = useLocalizedTools()
+const filtered = computed<Tool[]>(() => {
+  const q = props.query.trim().toLowerCase()
+  const list = q
+    ? localizedTools.value.filter((tool) =>
+        tool.name.toLowerCase().includes(q) ||
+        tool.desc.toLowerCase().includes(q) ||
+        // Search across the opposite locale too, so users can still
+        // find tools by the original Chinese name when EN is active.
+        tool.path.toLowerCase().includes(q),
+      )
+    : localizedTools.value
+  return list.slice(0, 20)
+})
 
 // Which row is currently highlighted (for keyboard nav + Enter).
 // Reset to 0 every time the filter result changes so the user always

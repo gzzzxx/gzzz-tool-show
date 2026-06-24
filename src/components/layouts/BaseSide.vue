@@ -10,7 +10,7 @@
       <router-link
         to="/"
         class="base-side__brand-inner"
-        aria-label="返回首页"
+        :aria-label="t('header.home.tooltip')"
         @click="emit('navigate', '/')"
       >
         <img src="../../images/logo.svg" alt="IT Tools" class="base-side__logo" />
@@ -24,19 +24,19 @@
     <div v-show="!isCollapsed" class="base-side__body">
       <div
         v-for="category in categories"
-        :key="category.name"
+        :key="category.key"
         class="base-side__category"
       >
         <button
           type="button"
           class="base-side__category-header"
-          :aria-expanded="!isCategoryCollapsed(category.name)"
-          @click="toggleCategory(category.name)"
+          :aria-expanded="!isCategoryCollapsed(category.key)"
+          @click="toggleCategory(category.key)"
         >
           <el-icon
             :class="[
               'base-side__category-arrow',
-              { 'is-collapsed': isCategoryCollapsed(category.name) },
+              { 'is-collapsed': isCategoryCollapsed(category.key) },
             ]"
           >
             <ArrowDown />
@@ -46,7 +46,7 @@
 
         <transition name="base-side-fade">
           <ul
-            v-show="!isCategoryCollapsed(category.name)"
+            v-show="!isCategoryCollapsed(category.key)"
             class="base-side__tools"
           >
             <li
@@ -77,6 +77,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { useStorage } from '@vueuse/core'
 import {
   ArrowDown,
@@ -89,6 +90,8 @@ import {
   View,
 } from '@element-plus/icons-vue'
 import type { Component } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedTools } from '~/composables/useTools'
 
 withDefaults(
   defineProps<{ isCollapsed?: boolean }>(),
@@ -100,50 +103,64 @@ const emit = defineEmits<{
   (e: 'navigate', path: string): void
 }>()
 
-// Hard-coded menu — paths match src/router/index.ts.
-const categories = [
-  {
-    name: '加密',
-    tools: [
-      { path: '/encryption/SM4', name: 'SM4 加密/解密', icon: 'Lock' },
-      { path: '/encryption/AES', name: 'AES 加密/解密', icon: 'Lock' },
-    ],
-  },
-  {
-    name: '转换',
-    tools: [
-      { path: '/base64', name: 'Base64 转换', icon: 'Coin' },
-      { path: '/timestamp', name: '时间戳转换', icon: 'Timer' },
-      { path: '/color', name: '颜色转换', icon: 'Brush' },
-    ],
-  },
-  {
-    name: '开发',
-    tools: [
-      { path: '/format', name: 'JSON 格式化', icon: 'Document' },
-      { path: '/contrast', name: '代码对比', icon: 'View' },
-    ],
-  },
-  {
-    name: '时间',
-    tools: [{ path: '/calendar', name: '日历', icon: 'Calendar' }],
-  },
-]
+// Category labels and per-tool display name are both locale-driven.
+// The category key (e.g. 'crypto') is stable for the collapse state
+// to key off; switching language never breaks saved state.
+//
+// Use the active language's tool list so each <a> shows the right
+// translated name without the parent having to do any lookups.
+const { t } = useI18n({ useScope: 'global' })
+const { localizedTools } = useLocalizedTools()
 
+// Stable category key → display name (translated via t()).
+const categoryDefs = [
+  { key: 'crypto',  i18nKey: 'sidebar.category.crypto',  paths: ['/encryption/SM4', '/encryption/AES'] },
+  { key: 'convert', i18nKey: 'sidebar.category.convert', paths: ['/base64', '/timestamp', '/color'] },
+  { key: 'dev',     i18nKey: 'sidebar.category.dev',     paths: ['/format', '/contrast'] },
+  { key: 'time',    i18nKey: 'sidebar.category.time',    paths: ['/calendar'] },
+] as const
+
+const categories = computed(() =>
+  categoryDefs.map((cat) => ({
+    key: cat.key,
+    name: t(cat.i18nKey),
+    tools: cat.paths
+      .map((path) => localizedTools.value.find((tool) => tool.path === path))
+      .filter((tool): tool is NonNullable<typeof tool> => tool !== undefined)
+      .map((tool) => ({
+        path: tool.path,
+        name: tool.name,
+        icon: tool.icon ?? 'document',
+      })),
+  })),
+)
+
+// Icon keys here match the lowercase registry ids in
+// src/composables/useTools.ts (e.g. 'lock', 'coin'). The Element Plus
+// icon components are imported above; the map is just a name lookup.
 const icons: Record<string, Component> = {
-  Lock, Coin, Timer, Brush, Document, View, Calendar,
+  lock: Lock,
+  coin: Coin,
+  timer: Timer,
+  brush: Brush,
+  document: Document,
+  view: View,
+  calendar: Calendar,
+  code: Document,
 }
 
-// Persisted per-category collapse state — survives reloads.
+// Persisted per-category collapse state — survives reloads. Keyed
+// by the stable category `key` (not the display name) so renaming
+// a category or switching language never breaks saved state.
 const collapsedCategories = useStorage<Record<string, boolean>>(
   'base-side:collapsed-categories',
   {},
 )
-const isCategoryCollapsed = (name: string) => collapsedCategories.value[name] ?? false
-function toggleCategory(name: string) {
+const isCategoryCollapsed = (key: string) => collapsedCategories.value[key] ?? false
+function toggleCategory(key: string) {
   collapsedCategories.value = {
     ...collapsedCategories.value,
-    [name]: !isCategoryCollapsed(name),
+    [key]: !isCategoryCollapsed(key),
   }
 }
 </script>

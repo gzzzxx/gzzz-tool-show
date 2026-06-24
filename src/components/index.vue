@@ -13,10 +13,10 @@
       </div>
     </div>
 
-    <h3 class="home-page__section-title">全部工具</h3>
+    <h3 class="home-page__section-title">{{ t('home.section.tools') }}</h3>
 
     <div class="home-page__grid home-page__grid--tools">
-      <div v-for="tool in tools" :key="tool.path" class="home-page__cell">
+      <div v-for="tool in localizedTools" :key="tool.path" class="home-page__cell">
         <ToolCard :tool="tool" />
       </div>
     </div>
@@ -24,9 +24,13 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import FollowBanner from './cards/FollowBanner.vue'
 import ToolCard from './cards/ToolCard.vue'
-import { tools } from '~/composables/useTools'
+import { useLocalizedTools } from '~/composables/useTools'
+
+const { localizedTools } = useLocalizedTools()
+const { t } = useI18n({ useScope: 'global' })
 </script>
 
 <style lang="scss" scoped>

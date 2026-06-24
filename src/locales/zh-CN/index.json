@@ -1,0 +1,92 @@
+{
+  "common": {
+    "sponsor": "赞助",
+    "theme": {
+      "light": "切换为浅色",
+      "dark": "切换为深色"
+    }
+  },
+  "header": {
+    "search": {
+      "placeholder": "搜索",
+      "clearAria": "清空搜索",
+      "toggleSider": {
+        "expand": "展开侧栏",
+        "collapse": "折叠侧栏"
+      }
+    },
+    "home": {
+      "tooltip": "首页"
+    },
+    "about": {
+      "tooltip": "关于"
+    },
+    "lang": {
+      "tooltip": "语言"
+    }
+  },
+  "sidebar": {
+    "category": {
+      "crypto": "加密",
+      "convert": "转换",
+      "dev": "开发",
+      "time": "时间"
+    }
+  },
+  "home": {
+    "section": {
+      "tools": "全部工具"
+    },
+    "banner": {
+      "desc": "如果对您有帮助，请 Star {github}、{gitee}，感谢您的支持！"
+    }
+  },
+  "palette": {
+    "title": "工具",
+    "hint": {
+      "empty": "输入关键字开始搜索",
+      "noResult": "没找到匹配 “{q}” 的工具",
+      "nav": "选择",
+      "open": "打开",
+      "close": "关闭"
+    }
+  },
+  "lang": {
+    "zh-CN": "中文",
+    "en-US": "English"
+  },
+  "tools": {
+    "sm4": {
+      "name": "SM4 加密/解密",
+      "desc": "国密 SM4 算法,支持 CBC/ECB 多种模式,密钥 128 位"
+    },
+    "aes": {
+      "name": "AES 加密/解密",
+      "desc": "AES 对称加密,支持 128/192/256 位密钥"
+    },
+    "base64": {
+      "name": "Base64 转换",
+      "desc": "字符串/文件 Base64 编码解码,支持中文"
+    },
+    "timestamp": {
+      "name": "时间戳转换",
+      "desc": "Unix 时间戳与日期互转,支持秒/毫秒"
+    },
+    "color": {
+      "name": "颜色转换",
+      "desc": "HEX/RGB/HSL 互转,实时预览"
+    },
+    "format": {
+      "name": "JSON 格式化",
+      "desc": "JSON 格式化、压缩、校验、字段提取"
+    },
+    "contrast": {
+      "name": "代码对比",
+      "desc": "文本/代码 diff,支持多种语言高亮"
+    },
+    "calendar": {
+      "name": "日历",
+      "desc": "日期查询、农历转换、年历"
+    }
+  }
+}

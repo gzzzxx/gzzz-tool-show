@@ -1,41 +1,49 @@
 /*
-  useTools.ts — 单一来源的工具数据 + 搜索逻辑。
+  useTools.ts — single source of truth for the home grid + search palette.
 
-  The home grid and the header search palette both read from this
-  module so the two surfaces never drift apart. Adding a new tool
-  here lights it up everywhere.
-
-  Search rule: case-insensitive `includes` against name / desc / path.
-  Empty / whitespace query returns the full list in source order.
+  Each tool entry only carries an `i18nKey`; name/desc are resolved
+  through vue-i18n. The data layer stays free of UI strings — they're
+  all in src/locales/<locale>/index.json under `tools.*`.
 */
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export interface Tool {
   path: string
-  name: string
-  desc: string
+  /** dot-path into vue-i18n messages, e.g. 'tools.base64' */
+  i18nKey: string
   /** key into toolIconRegistry; falls back to 'document' when missing */
   icon?: string
   isNew?: boolean
 }
 
-export const tools = ref<Tool[]>([
-  { path: '/encryption/SM4', name: 'SM4 加密/解密', desc: '国密 SM4 算法,支持 CBC/ECB 多种模式,密钥 128 位', icon: 'lock' },
-  { path: '/encryption/AES', name: 'AES 加密/解密', desc: 'AES 对称加密,支持 128/192/256 位密钥', icon: 'lock' },
-  { path: '/base64', name: 'Base64 转换', desc: '字符串/文件 Base64 编码解码,支持中文', icon: 'coin' },
-  { path: '/timestamp', name: '时间戳转换', desc: 'Unix 时间戳与日期互转,支持秒/毫秒', icon: 'timer' },
-  { path: '/color', name: '颜色转换', desc: 'HEX/RGB/HSL 互转,实时预览', icon: 'brush' },
-  { path: '/format', name: 'JSON 格式化', desc: 'JSON 格式化、压缩、校验、字段提取', icon: 'document' },
-  { path: '/contrast', name: '代码对比', desc: '文本/代码 diff,支持多种语言高亮', icon: 'code' },
-  { path: '/calendar', name: '日历', desc: '日期查询、农历转换、年历', icon: 'calendar' },
-])
+const rawTools: Tool[] = [
+  { path: '/encryption/SM4',  i18nKey: 'tools.sm4',       icon: 'lock' },
+  { path: '/encryption/AES',  i18nKey: 'tools.aes',       icon: 'lock' },
+  { path: '/base64',          i18nKey: 'tools.base64',    icon: 'coin' },
+  { path: '/timestamp',       i18nKey: 'tools.timestamp', icon: 'timer' },
+  { path: '/color',           i18nKey: 'tools.color',     icon: 'brush' },
+  { path: '/format',          i18nKey: 'tools.format',    icon: 'document' },
+  { path: '/contrast',        i18nKey: 'tools.contrast',  icon: 'code' },
+  { path: '/calendar',        i18nKey: 'tools.calendar',  icon: 'calendar' },
+]
 
-export function searchTools(query: string): Tool[] {
-  const q = query.trim().toLowerCase()
-  if (!q) return tools.value
-  return tools.value.filter((t) =>
-    t.name.toLowerCase().includes(q) ||
-    t.desc.toLowerCase().includes(q) ||
-    t.path.toLowerCase().includes(q),
+// Locale-aware view: resolve name/desc through t() so the rendered
+// list flips when the user toggles the language. The composed shape
+// still has `name`/`desc` so existing consumers (ToolCard,
+// SearchPalette) don't have to change.
+//
+// `useScope: 'global'` is needed because this composable is invoked
+// from a non-component scope (a plain function); without the hint
+// vue-i18n prints "Not found parent scope".
+export function useLocalizedTools() {
+  const { t } = useI18n({ useScope: 'global' })
+  const localizedTools = computed<Tool[]>(() =>
+    rawTools.map((entry) => ({
+      ...entry,
+      name: t(`${entry.i18nKey}.name`),
+      desc: t(`${entry.i18nKey}.desc`),
+    })),
   )
+  return { localizedTools }
 }

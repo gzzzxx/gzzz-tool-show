@@ -1,0 +1,92 @@
+{
+  "common": {
+    "sponsor": "Sponsor",
+    "theme": {
+      "light": "Switch to light",
+      "dark": "Switch to dark"
+    }
+  },
+  "header": {
+    "search": {
+      "placeholder": "Search",
+      "clearAria": "Clear search",
+      "toggleSider": {
+        "expand": "Expand sidebar",
+        "collapse": "Collapse sidebar"
+      }
+    },
+    "home": {
+      "tooltip": "Home"
+    },
+    "about": {
+      "tooltip": "About"
+    },
+    "lang": {
+      "tooltip": "Language"
+    }
+  },
+  "sidebar": {
+    "category": {
+      "crypto": "Crypto",
+      "convert": "Convert",
+      "dev": "Developer",
+      "time": "Time"
+    }
+  },
+  "home": {
+    "section": {
+      "tools": "All Tools"
+    },
+    "banner": {
+      "desc": "If this is helpful, please star us on {github} / {gitee} — thanks for the support!"
+    }
+  },
+  "palette": {
+    "title": "Tools",
+    "hint": {
+      "empty": "Type to start searching",
+      "noResult": "No matching tools for “{q}”",
+      "nav": "navigate",
+      "open": "open",
+      "close": "close"
+    }
+  },
+  "lang": {
+    "zh-CN": "中文",
+    "en-US": "English"
+  },
+  "tools": {
+    "sm4": {
+      "name": "SM4 Encrypt/Decrypt",
+      "desc": "Chinese national SM4 cipher, CBC/ECB modes, 128-bit key"
+    },
+    "aes": {
+      "name": "AES Encrypt/Decrypt",
+      "desc": "AES symmetric cipher, 128/192/256-bit keys"
+    },
+    "base64": {
+      "name": "Base64 Converter",
+      "desc": "String/file Base64 encoding & decoding, CJK-safe"
+    },
+    "timestamp": {
+      "name": "Timestamp Converter",
+      "desc": "Unix timestamp ↔ date, seconds/milliseconds"
+    },
+    "color": {
+      "name": "Color Converter",
+      "desc": "HEX / RGB / HSL conversion with live preview"
+    },
+    "format": {
+      "name": "JSON Formatter",
+      "desc": "Format / minify / validate JSON, pick fields"
+    },
+    "contrast": {
+      "name": "Code Diff",
+      "desc": "Text/code diff with multi-language syntax highlight"
+    },
+    "calendar": {
+      "name": "Calendar",
+      "desc": "Date lookup, lunar calendar, year view"
+    }
+  }
+}
