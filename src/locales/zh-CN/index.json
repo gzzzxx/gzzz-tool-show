@@ -28,8 +28,8 @@
   "sidebar": {
     "category": {
       "crypto": "加密",
-      "convert": "转换",
       "dev": "开发",
+      "convert": "转换",
       "time": "时间"
     },
     "favorites": "我的收藏"

@@ -28,8 +28,8 @@
   "sidebar": {
     "category": {
       "crypto": "Crypto",
-      "convert": "Convert",
       "dev": "Developer",
+      "convert": "Convert",
       "time": "Time"
     },
     "favorites": "Favorites"

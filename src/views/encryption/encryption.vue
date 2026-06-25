@@ -13,21 +13,19 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useRouter } from "vue-router";
 import detail from './encryptionDetail.vue'
 
-const router = useRouter();
+// algorithm 由路由 props 传入（registry 里 SM4 / AES 各传一份），
+// 不再从 route.params 读，避开 alias 模式下两个 path 共享一条
+// :id 路由带来的 params 解析问题。
+const props = defineProps<{ algorithm: string }>()
 
-const par = router.currentRoute.value.params.id
-
-const activeName = ref(par)
-
-let algorithm = par;
+const activeName = ref(props.algorithm)
+let algorithm = props.algorithm
 
 const handleClick = (tab: any) => {
     algorithm = tab.props.label
 }
-
 </script>
 
 <style lang="less" scoped>

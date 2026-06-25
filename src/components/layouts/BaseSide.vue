@@ -192,20 +192,27 @@ const { t } = useI18n({ useScope: 'global' })
 const { localizedTools } = useLocalizedTools()
 
 // Stable category key → display name (translated via t()).
-const categoryDefs = [
-  { key: 'crypto',  i18nKey: 'sidebar.category.crypto',  paths: ['/encryption/SM4', '/encryption/AES'] },
-  { key: 'convert', i18nKey: 'sidebar.category.convert', paths: ['/base64', '/timestamp', '/color'] },
-  { key: 'dev',     i18nKey: 'sidebar.category.dev',     paths: ['/format', '/sql', '/contrast'] },
-  { key: 'time',    i18nKey: 'sidebar.category.time',    paths: ['/calendar'] },
-] as const
+// Per-category tool list is filtered from the registry by `category`,
+// so adding a tool to a category means setting `category: 'dev'` in
+// the registry — no edit here.
+import { tools } from '~/tools/registry'
+import type { ToolCategory } from '~/tools/registry'
+
+const categoryDefs: { key: ToolCategory; i18nKey: string }[] = [
+  { key: 'crypto',  i18nKey: 'sidebar.category.crypto' },
+  { key: 'dev',     i18nKey: 'sidebar.category.dev' },
+  { key: 'convert', i18nKey: 'sidebar.category.convert' },
+  { key: 'time',    i18nKey: 'sidebar.category.time' },
+]
+
+const categoryByPath = new Map(tools.map(tool => [tool.path, tool.category]))
 
 const categories = computed(() =>
   categoryDefs.map((cat) => ({
     key: cat.key,
     name: t(cat.i18nKey),
-    tools: cat.paths
-      .map((path) => localizedTools.value.find((tool) => tool.path === path))
-      .filter((tool): tool is NonNullable<typeof tool> => tool !== undefined)
+    tools: localizedTools.value
+      .filter((tool) => categoryByPath.get(tool.path) === cat.key)
       .map((tool) => ({
         path: tool.path,
         name: tool.name,
