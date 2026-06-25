@@ -76,6 +76,16 @@ export const toolIconRegistry: Record<string, IconRender> = {
     }),
   ]),
 
+  // SQL formatter — database cylinder (classic "DB" glyph: an
+  // ellipse lid + two side curves + a middle ring for the second
+  // disc). Reads unambiguously as a database at thumbnail size
+  // and pairs naturally with the SQL tool name.
+  database: () => h('g', null, [
+    h('ellipse', { cx: 12, cy: 5, rx: 9, ry: 3 }),
+    h('path',  { d: 'M3 5v14a9 3 0 0 0 18 0V5' }),
+    h('path',  { d: 'M3 12a9 3 0 0 0 18 0' }),
+  ]),
+
   // Code diff — two opposing arrows, left/right comparison
   diff: () => h('g', null, [
     h('path', { d: 'M3 7h6l-3-3M3 17h6l-3 3' }),

@@ -93,6 +93,10 @@
       "name": "JSON Formatter",
       "desc": "Format / minify / validate JSON, pick fields"
     },
+    "sql": {
+      "name": "SQL Formatter",
+      "desc": "Format / minify SQL with MySQL, PostgreSQL, SQLite and more"
+    },
     "contrast": {
       "name": "Code Diff",
       "desc": "Text/code diff with multi-language syntax highlight"

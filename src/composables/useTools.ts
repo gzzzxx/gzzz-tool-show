@@ -28,6 +28,7 @@ const rawTools: Tool[] = [
   { path: '/timestamp',       i18nKey: 'tools.timestamp', icon: 'clock' },
   { path: '/color',           i18nKey: 'tools.color',     icon: 'palette' },
   { path: '/format',          i18nKey: 'tools.format',    icon: 'braces' },
+  { path: '/sql',             i18nKey: 'tools.sql',       icon: 'database' },
   { path: '/contrast',        i18nKey: 'tools.contrast',  icon: 'diff' },
   { path: '/calendar',        i18nKey: 'tools.calendar',  icon: 'calendar' },
 ]

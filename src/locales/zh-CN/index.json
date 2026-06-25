@@ -93,6 +93,10 @@
       "name": "JSON 格式化",
       "desc": "JSON 格式化、压缩、校验、字段提取"
     },
+    "sql": {
+      "name": "SQL 格式化",
+      "desc": "SQL 美化与压缩,支持 MySQL/PostgreSQL/SQLite 等多种方言"
+    },
     "contrast": {
       "name": "代码对比",
       "desc": "文本/代码 diff,支持多种语言高亮"

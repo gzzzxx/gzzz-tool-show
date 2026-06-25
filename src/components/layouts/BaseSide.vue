@@ -195,7 +195,7 @@ const { localizedTools } = useLocalizedTools()
 const categoryDefs = [
   { key: 'crypto',  i18nKey: 'sidebar.category.crypto',  paths: ['/encryption/SM4', '/encryption/AES'] },
   { key: 'convert', i18nKey: 'sidebar.category.convert', paths: ['/base64', '/timestamp', '/color'] },
-  { key: 'dev',     i18nKey: 'sidebar.category.dev',     paths: ['/format', '/contrast'] },
+  { key: 'dev',     i18nKey: 'sidebar.category.dev',     paths: ['/format', '/sql', '/contrast'] },
   { key: 'time',    i18nKey: 'sidebar.category.time',    paths: ['/calendar'] },
 ] as const
 

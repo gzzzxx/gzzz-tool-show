@@ -17,6 +17,11 @@ const routes = [
         component: () => import('../views/json/format.vue')
     },
     {
+        path: '/sql',
+        name: 'sql',
+        component: () => import('../views/sql/sql.vue')
+    },
+    {
         path: '/base64',
         name: 'base64',
         component: () => import('../views/base64/base64.vue')
