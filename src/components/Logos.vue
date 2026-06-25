@@ -26,6 +26,6 @@
   filter: drop-shadow(0 0 2em #42b883aa);
 }
 .logo.element-plus:hover {
-  filter: drop-shadow(0 0 2em #409effaa);
+  filter: drop-shadow(0 0 2em #2563ebaa);
 }
 </style>

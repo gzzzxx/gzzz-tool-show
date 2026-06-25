@@ -186,7 +186,7 @@ function onToggleFav() {
   }
   &:active { transform: scale(0.92); }
   &:focus-visible {
-    outline: 2px solid var(--el-color-primary, #409eff);
+    outline: 2px solid var(--el-color-primary, #2563eb);
     outline-offset: 1px;
   }
 

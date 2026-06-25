@@ -42,6 +42,10 @@
     "banner": {
       "title": "Follow us",
       "desc": "If this is helpful, please star us on {github} / {gitee} — thanks for the support!"
+    },
+    "drag": {
+      "hintIdle": "Drag to reorder",
+      "hintActive": "Release to drop"
     }
   },
   "toolcard": {

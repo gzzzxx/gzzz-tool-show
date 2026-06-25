@@ -435,10 +435,10 @@ onUnmounted(() => {
 
   &:hover {
     background: var(--ah-hover);
-    color: var(--el-color-primary, #409eff);
+color: var(--el-color-primary, #2563eb);
   }
   &:focus-visible {
-    outline: 2px solid var(--el-color-primary, #409eff);
+    outline: 2px solid var(--el-color-primary, #2563eb);
     outline-offset: 1px;
   }
 }
@@ -453,7 +453,7 @@ onUnmounted(() => {
   gap: 8px;
   min-width: 100px;
 }
-.app-header__lang-item-check { color: var(--el-color-primary, #409eff); }
+.app-header__lang-item-check { color: var(--el-color-primary, #2563eb); }
 
 // Strip the el-dropdown's caret icon — our button uses the language
 // label as the only affordance, an extra caret looks noisy.
@@ -483,7 +483,7 @@ onUnmounted(() => {
   transition: border-color 0.15s ease, background-color 0.15s ease;
 
   &:focus-within {
-    border-color: var(--el-color-primary, #409eff);
+    border-color: var(--el-color-primary, #2563eb);
     background: rgba(0, 0, 0, 0.02);
   }
 }
@@ -551,7 +551,7 @@ onUnmounted(() => {
   align-items: center;
   height: 32px;
   padding: 0 14px;
-  background: linear-gradient(135deg, #0284c7, #7dd3fc);
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
   color: #fff;
   border: none;
   border-radius: 8px;

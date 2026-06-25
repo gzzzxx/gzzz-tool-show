@@ -270,7 +270,7 @@ defineExpose({ handleKeydown })
     // because the Element Plus CSS-var layer isn't always injected at
     // :root on this project; falling back to --el-color-primary would
     // resolve to an empty value and leave the row transparent.
-    background-color: #409eff;
+    background-color: var(--el-color-primary, #2563eb);
     color: #fff;
 
     .search-palette__desc { color: rgba(255, 255, 255, 0.85); }

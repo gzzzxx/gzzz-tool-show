@@ -42,6 +42,10 @@
     "banner": {
       "title": "关注我们",
       "desc": "如果对您有帮助，请 Star {github}、{gitee}，感谢您的支持！"
+    },
+    "drag": {
+      "hintIdle": "拖动卡片可调整顺序",
+      "hintActive": "松开鼠标放置到目标位置"
     }
   },
   "toolcard": {

@@ -250,8 +250,8 @@ const isFavoritesCollapsed = useStorage<boolean>(
   --bs-sider-text-mute: var(--it-sider-text-mute, #64748b);
   --bs-sider-hover:     var(--it-sider-hover, rgba(0, 0, 0, 0.06));
   --bs-sider-border:    var(--it-sider-border, #e2e8f0);
-  --bs-sider-grad-from: #0369a1;
-  --bs-sider-grad-to:   #38bdf8;
+  --bs-sider-grad-from: #1e3a8a;
+  --bs-sider-grad-to:   #60a5fa;
 
   position: relative;
   display: flex;
@@ -290,7 +290,7 @@ const isFavoritesCollapsed = useStorage<boolean>(
   &:hover { opacity: 0.85; }
   &:active { transform: scale(0.98); }
   &:focus-visible {
-    outline: 2px solid var(--el-color-primary, #0284c7);
+    outline: 2px solid var(--el-color-primary, #2563eb);
     outline-offset: 2px;
   }
 }

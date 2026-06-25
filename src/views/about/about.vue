@@ -90,14 +90,14 @@
   p { margin: 0 0 14px; }
 
   &__link {
-    color: #0284c7;
+    color: var(--el-color-primary, #2563eb);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-color 0.15s ease, color 0.15s ease;
 
     &:hover {
-      border-bottom-color: #0284c7;
-      color: #075985;
+      border-bottom-color: var(--el-color-primary, #2563eb);
+      color: #1e40af;
     }
   }
 }
@@ -105,7 +105,7 @@
 :global(html.dark) .about-page {
   color: var(--it-text-primary, #f1f5f9);
 
-  .about-page__link { color: #7dd3fc; }
-  .about-page__link:hover { color: #bae6fd; border-bottom-color: #bae6fd; }
+  .about-page__link { color: #60a5fa; }
+  .about-page__link:hover { color: #93c5fd; border-bottom-color: #93c5fd; }
 }
 </style>

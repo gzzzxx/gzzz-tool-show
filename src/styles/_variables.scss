@@ -21,36 +21,38 @@ $it-radius-sm:     4px;
 $it-radius-lg:     12px;
 
 // --- CSS custom properties (runtime, theme-aware) ---------------------
-// Light mode (default) — values come straight from design.md §2.1
+// Light mode (default) — Deep Ocean palette: slate surfaces nudged toward
+// blue, primary anchored on royal blue (#2563eb) for a calm "dev-tool"
+// tone (GitHub / Linear / Vercel adjacent).
 :root {
-  // Surfaces
-  --it-bg:               #f1f5f9;
+  // Surfaces — slate pushed toward blue (was #f1f5f9)
+  --it-bg:               #eff4fb;
   --it-bg-elevated:      #ffffff;
 
-  // Text
-  --it-text-primary:     #1e293b;
-  --it-text-secondary:   #64748b;
+  // Text — deeper slate for stronger contrast against the bluer bg
+  --it-text-primary:     #0f172a;
+  --it-text-secondary:   #475569;
   --it-text-tertiary:    #94a3b8;
 
-  // Borders & shadows
-  --it-border:           #e2e8f0;
-  --it-card-shadow:        0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --it-card-shadow-hover:  0 4px 6px -1px rgb(0 0 0 / 0.1),
-                           0 2px 4px -2px rgb(0 0 0 / 0.1);
+  // Borders & shadows — border picks up a slight blue tint
+  --it-border:           #dbe4f0;
+  --it-card-shadow:        0 1px 2px 0 rgb(15 23 42 / 0.05);
+  --it-card-shadow-hover:  0 4px 6px -1px rgb(15 23 42 / 0.1),
+                           0 2px 4px -2px rgb(15 23 42 / 0.1);
 
-  // Sidebar (light)
+  // Sidebar (light) — follows the same blue-tinted slate family
   --it-sider-bg:        #ffffff;
-  --it-sider-text:      #1e293b;
-  --it-sider-text-mute: #64748b;
-  --it-sider-hover:     rgba(0, 0, 0, 0.06);
-  --it-sider-border:    #e2e8f0;
+  --it-sider-text:      #0f172a;
+  --it-sider-text-mute: #475569;
+  --it-sider-hover:     rgba(15, 23, 42, 0.06);
+  --it-sider-border:    #dbe4f0;
 
-  // Banner (always dark gradient, theme-agnostic — fixed colors)
+  // Banner — royal-blue gradient (sky-700/600/400 → blue-900/600/400)
   --it-follow-banner-bg: linear-gradient(
     48deg,
-    #0369a1 0%,
-    #0284c7 60%,
-    #38bdf8 100%
+    #1e3a8a 0%,
+    #2563eb 60%,
+    #60a5fa 100%
   );
 
   // Sizing / spacing aliases (also exposed as CSS vars for runtime use)
@@ -60,52 +62,59 @@ $it-radius-lg:     12px;
   --it-section-gap:   #{$it-section-gap};
   --it-page-padding:  #{$it-page-padding};
 
-  // Favorite / 收藏 — same teal as the brand primary, so the
+  // Favorite / 收藏 — royal blue (matches --el-color-primary), so the
   // filled heart on a tool card + the heart icon on the sidebar's
   // "我的收藏" group both read as "this is the project's accent
-  // color" instead of Element Plus's default success green. Resolves
-  // to --el-color-primary so any future theme tweak (e.g. switching
-  // the Element Plus primary) carries through automatically.
-  --it-favorite:        var(--el-color-primary, #0284c7);
-  --it-favorite-soft:   rgba(2, 132, 199, 0.08);
-  --it-favorite-softer: rgba(2, 132, 199, 0.12);
+  // color". Resolves to --el-color-primary so any future theme tweak
+  // (e.g. switching the Element Plus primary) carries through.
+  --it-favorite:        var(--el-color-primary, #2563eb);
+  --it-favorite-soft:   rgba(37, 99, 235, 0.08);
+  --it-favorite-softer: rgba(37, 99, 235, 0.12);
 }
 
 // Dark mode — toggled by adding `html.dark` (set in App.vue from
 // the theme toggle, see src/components/layouts/BaseHeader.vue).
+// Premium gray-black surfaces (Apple systemBackground-dark family):
+// surfaces stay neutral so the royal-blue primary + banner do the
+// "blue talking", instead of the background itself screaming blue.
 html.dark {
-  --it-bg:               #1c1c1c;
-  --it-bg-elevated:      #232323;
+  // Surfaces — Apple-system-style gray-black; no blue undertone
+  --it-bg:               #121214;
+  --it-bg-elevated:      #1e1e22;
 
-  --it-text-primary:     #f1f5f9;
-  --it-text-secondary:   #cbd5e1;
-  --it-text-tertiary:    #94a3b8;
+  // Text — slate-100/400 for AAA contrast on the gray-black bg
+  --it-text-primary:     #f5f5f7;
+  --it-text-secondary:   #a1a1aa;
+  --it-text-tertiary:    #71717a;
 
-  --it-border:           #282828;
-  --it-card-shadow:        0 1px 2px 0 rgb(0 0 0 / 0.3);
-  --it-card-shadow-hover:  0 4px 12px rgb(0 0 0 / 0.4);
+  // Borders & shadows — neutral gray, with deeper shadow so cards
+  // still feel lifted off the lighter gray-black bg
+  --it-border:           #2a2a30;
+  --it-card-shadow:        0 1px 2px 0 rgb(0 0 0 / 0.6);
+  --it-card-shadow-hover:  0 4px 12px rgb(0 0 0 / 0.7);
 
-  // Sidebar (dark)
-  --it-sider-bg:        #1a1a1a;
-  --it-sider-text:      #e2e8f0;
-  --it-sider-text-mute: rgba(226, 232, 240, 0.55);
-  --it-sider-hover:     rgba(255, 255, 255, 0.06);
+  // Sidebar (dark) — sits between bg and elevated for clear hierarchy
+  --it-sider-bg:        #17171a;
+  --it-sider-text:      #e4e4e7;
+  --it-sider-text-mute: rgba(228, 228, 231, 0.55);
+  --it-sider-hover:     rgba(255, 255, 255, 0.05);
   --it-sider-border:    rgba(255, 255, 255, 0.06);
 
-  // Banner stays the same — it's always the dark gradient, regardless
-  // of light/dark mode (matches ColoredCard.vue in the reference repo).
+  // Banner — same royal-blue gradient as light mode (theme-agnostic).
+  // Against the gray-black bg the blue banner pops as the main color
+  // carrier in the layout.
   --it-follow-banner-bg: linear-gradient(
     48deg,
-    #0369a1 0%,
-    #0284c7 60%,
-    #38bdf8 100%
+    #1e3a8a 0%,
+    #2563eb 60%,
+    #60a5fa 100%
   );
 
-  // Favorite on dark surfaces — use the lighter teal so the
-  // filled heart stays visible against the near-black card bg.
-  // Element Plus darkens the primary toward black on dark mode,
-  // so we re-anchor to the light variant (#38bdf8) explicitly.
-  --it-favorite:        #38bdf8;
-  --it-favorite-soft:   rgba(56, 189, 248, 0.10);
-  --it-favorite-softer: rgba(56, 189, 248, 0.16);
+  // Favorite on dark surfaces — use the lighter blue-500 (#3b82f6)
+  // so the filled heart stays visible against the gray-black card bg.
+  // Element Plus darkens the primary toward black on dark mode, so we
+  // re-anchor to the lighter blue variant explicitly.
+  --it-favorite:        #3b82f6;
+  --it-favorite-soft:   rgba(59, 130, 246, 0.12);
+  --it-favorite-softer: rgba(59, 130, 246, 0.18);
 }
