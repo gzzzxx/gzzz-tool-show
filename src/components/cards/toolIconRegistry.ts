@@ -38,6 +38,14 @@ export const toolIconRegistry: Record<string, IconRender> = {
     h('path', { d: 'M10.85 12.15 19 4M18 5l3 3M15 8l3 3' }),
   ]),
 
+  // Hash — the # glyph (two horizontal + two vertical bars).
+  hash: () => h('g', null, [
+    h('line', { x1: 4,  y1: 9,  x2: 20, y2: 9  }),
+    h('line', { x1: 4,  y1: 15, x2: 20, y2: 15 }),
+    h('line', { x1: 10, y1: 3,  x2: 8,  y2: 21 }),
+    h('line', { x1: 16, y1: 3,  x2: 14, y2: 21 }),
+  ]),
+
   // Base64 — binary (two vertical bars, the "1010" feel)
   binary: () => h('g', null, [
     h('rect', { x: 6, y: 4, width: 3, height: 16, rx: 0.5 }),

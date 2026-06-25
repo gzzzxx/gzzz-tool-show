@@ -104,6 +104,10 @@
     "calendar": {
       "name": "日历",
       "desc": "日期查询、农历转换、年历"
+    },
+    "hash": {
+      "name": "Hash 计算",
+      "desc": "MD5 / SHA-1 / SHA-256 / SHA-384 / SHA-512 摘要计算"
     }
   }
 }

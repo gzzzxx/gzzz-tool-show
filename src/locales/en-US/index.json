@@ -104,6 +104,10 @@
     "calendar": {
       "name": "Calendar",
       "desc": "Date lookup, lunar calendar, year view"
+    },
+    "hash": {
+      "name": "Hash Calculator",
+      "desc": "MD5 / SHA-1 / SHA-256 / SHA-384 / SHA-512 digests"
     }
   }
 }
