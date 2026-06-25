@@ -161,7 +161,11 @@ function onToggleFav() {
 
 // Heart button — sits inside the head row, never overlaps the icon.
 // No `position: absolute` needed because the head's space-between
-// already pins it to the right edge.
+// already pins it to the right edge. Colors come from --it-favorite
+// (defined in _variables.scss) so the filled heart always matches
+// the project accent (teal primary), not Element Plus's default
+// success green — same teal the sidebar's "我的收藏" group header
+// uses, so the two favorite affordances look like one family.
 .tool-card__fav {
   display: inline-flex;
   align-items: center;
@@ -177,8 +181,8 @@ function onToggleFav() {
   transition: color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
 
   &:hover {
-    color: var(--el-color-success, #67c23a);
-    background-color: rgba(103, 194, 58, 0.08);
+    color: var(--it-favorite);
+    background-color: var(--it-favorite-soft);
   }
   &:active { transform: scale(0.92); }
   &:focus-visible {
@@ -186,12 +190,12 @@ function onToggleFav() {
     outline-offset: 1px;
   }
 
-  // Filled state — green heart.
+  // Filled state — teal heart.
   &.is-fav {
-    color: var(--el-color-success, #67c23a);
+    color: var(--it-favorite);
     &:hover {
-      color: var(--el-color-success, #5daf34);
-      background-color: rgba(103, 194, 58, 0.12);
+      color: var(--it-favorite);
+      background-color: var(--it-favorite-softer);
     }
   }
 

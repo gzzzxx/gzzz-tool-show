@@ -1,12 +1,19 @@
 <!--
-  FollowBanner.vue — the "Follow us on GitHub" call-out card on the
-  home page. Mirrors it-tools' ColoredCard.vue: a heart icon, 16/500
-  title, and a 2-line description with inline GitHub / Gitee links.
-  Background is the teal→green gradient, theme-agnostic.
+  FollowBanner.vue — the "关注我们" / "Follow us on GitHub" call-out
+  card on the home page. Mirrors it-tools' ColoredCard.vue: a 5-point
+  filled star icon (reads as the GitHub "star / watch" affordance,
+  pairs naturally with the inline GitHub / Gitee links below), a
+  16/500 title, and a 2-line description with inline GitHub / Gitee
+  links. Background is the teal→green gradient, theme-agnostic.
 
-  Uses vue-i18n's <i18n-t> component so the full sentence (including
-  the separators `、` vs `/` and the trailing "感谢您的支持！" vs
-  "— thanks for the support!") lives in JSON, not in the template.
+  Both the title and description are locale-driven (vue-i18n), so
+  flipping the language switcher in the header updates this banner
+  in lockstep with the rest of the page. The `title` prop is still
+  accepted as an explicit override for one-off usages.
+
+  Uses vue-i18n's <i18n-t> component so the full description sentence
+  (including the separators `、` vs `/` and the trailing "感谢您的支持！"
+  vs "— thanks for the support!") lives in JSON, not in the template.
   locales/index.ts filters the [intlify] "Not found parent scope"
   dev warning this component fires.
 -->
@@ -26,11 +33,11 @@
         fill="currentColor"
         aria-hidden="true"
       >
-        <path d="M12 21s-7-4.5-9.5-9.5C.8 7.5 3.5 4 7 4c2 0 3.5 1 5 3 1.5-2 3-3 5-3 3.5 0 6.2 3.5 4.5 7.5C19 16.5 12 21 12 21z" />
+        <component :is="starIcon" />
       </svg>
     </div>
     <h3 class="it-follow-banner__title follow-banner__title">
-      {{ title }}
+      {{ titleText }}
     </h3>
     <div class="it-follow-banner__desc follow-banner__desc">
       <i18n-t keypath="home.banner.desc" tag="span">
@@ -54,18 +61,33 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults } from 'vue'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { getUiIcon } from './toolIconRegistry'
 
-withDefaults(
+// Title is locale-driven. The `title` prop is still accepted so a
+// caller can override the default copy (e.g. for a one-off banner),
+// but when omitted it falls through to the active language's
+// `home.banner.title` — which flips automatically with the language
+// switcher in the header.
+const props = withDefaults(
   defineProps<{
     title?: string
   }>(),
   {
-    title: 'Follow us on GitHub',
+    title: '',
   },
 )
 
+const { t } = useI18n({ useScope: 'global' })
+const titleText = computed(() => props.title || t('home.banner.title'))
+
 const iconSize = 28
+
+// Icon comes from the shared UI registry (see toolIconRegistry.ts)
+// so the choice lives in one place — change the icon here, every
+// FollowBanner instance updates.
+const starIcon = getUiIcon('star')
 </script>
 
 <style lang="scss" scoped>

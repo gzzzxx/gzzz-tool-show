@@ -77,9 +77,20 @@
                 @click="emit('navigate', tool.path)"
               >
                 <span class="base-side__toggle-bar" aria-hidden="true" />
-                <el-icon class="base-side__tool-icon">
-                  <component :is="icons[tool.icon] ?? Document" />
-                </el-icon>
+                <svg
+                  class="base-side__tool-icon"
+                  :width="16"
+                  :height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <component :is="getToolIcon(tool.icon)" />
+                </svg>
                 <span class="base-side__tool-name">{{ tool.name }}</span>
               </router-link>
             </li>
@@ -126,9 +137,20 @@
                 @click="emit('navigate', tool.path)"
               >
                 <span class="base-side__toggle-bar" aria-hidden="true" />
-                <el-icon class="base-side__tool-icon">
-                  <component :is="icons[tool.icon] ?? Document" />
-                </el-icon>
+                <svg
+                  class="base-side__tool-icon"
+                  :width="16"
+                  :height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <component :is="getToolIcon(tool.icon)" />
+                </svg>
                 <span class="base-side__tool-name">{{ tool.name }}</span>
               </router-link>
             </li>
@@ -144,20 +166,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useStorage } from '@vueuse/core'
-import {
-  ArrowDown,
-  Brush,
-  Calendar,
-  Coin,
-  Document,
-  Lock,
-  Timer,
-  View,
-} from '@element-plus/icons-vue'
-import type { Component } from 'vue'
+import { ArrowDown } from '@element-plus/icons-vue'
 import { useI18n } from 'vue-i18n'
 import { useLocalizedTools } from '~/composables/useTools'
 import { useFavorites } from '~/composables/useFavorites'
+import { getToolIcon } from '~/components/cards/toolIconRegistry'
 
 withDefaults(
   defineProps<{ isCollapsed?: boolean }>(),
@@ -200,20 +213,6 @@ const categories = computed(() =>
       })),
   })),
 )
-
-// Icon keys here match the lowercase registry ids in
-// src/composables/useTools.ts (e.g. 'lock', 'coin'). The Element Plus
-// icon components are imported above; the map is just a name lookup.
-const icons: Record<string, Component> = {
-  lock: Lock,
-  coin: Coin,
-  timer: Timer,
-  brush: Brush,
-  document: Document,
-  view: View,
-  calendar: Calendar,
-  code: Document,
-}
 
 // Persisted per-category collapse state — survives reloads. Keyed
 // by the stable category `key` (not the display name) so renaming
@@ -375,13 +374,15 @@ const isFavoritesCollapsed = useStorage<boolean>(
 
 .base-side__category { margin-top: 4px; }
 
-// Heart icon prefix on the "我的收藏" group header. Uses the success
-// green from Element Plus so the favorites group reads as
-// semantically different (personal / pinned) at a glance, while
-// still using the existing category header structure.
+// Heart icon prefix on the "我的收藏" group header. Uses the
+// project accent (--it-favorite → teal primary in light mode,
+// lighter teal in dark mode) so it matches the brand instead of
+// Element Plus's default success green. The favorites group reads
+// as "personal / pinned" via the heart glyph; the color just keeps
+// it on-brand with the rest of the UI.
 .base-side__favorites-icon {
   flex-shrink: 0;
-  color: var(--el-color-success, #67c23a);
+  color: var(--it-favorite);
   margin-left: 2px;
 }
 

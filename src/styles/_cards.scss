@@ -127,9 +127,10 @@
 // .it-follow-banner
 // The "Follow us on GitHub" call-out — sized to match a single tool
 // card (not full-width). Mirrors it-tools' ColoredCard.vue (see
-// reference): 40px heart icon + 16/500 title + multi-line description
-// with inline GitHub / X links. The teal→green gradient is theme-
-// agnostic (always dark, regardless of light/dark mode).
+// reference): 32px GitHub mark icon + 16/500 title + multi-line
+// description with inline GitHub / Gitee links. The teal→green
+// gradient is theme-agnostic (always dark, regardless of light/dark
+// mode).
 // ---------------------------------------------------------------------
 .it-follow-banner {
   position: relative;

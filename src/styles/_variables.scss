@@ -59,6 +59,16 @@ $it-radius-lg:     12px;
   --it-grid-gap:      #{$it-grid-gap};
   --it-section-gap:   #{$it-section-gap};
   --it-page-padding:  #{$it-page-padding};
+
+  // Favorite / 收藏 — same teal as the brand primary, so the
+  // filled heart on a tool card + the heart icon on the sidebar's
+  // "我的收藏" group both read as "this is the project's accent
+  // color" instead of Element Plus's default success green. Resolves
+  // to --el-color-primary so any future theme tweak (e.g. switching
+  // the Element Plus primary) carries through automatically.
+  --it-favorite:        var(--el-color-primary, #0284c7);
+  --it-favorite-soft:   rgba(2, 132, 199, 0.08);
+  --it-favorite-softer: rgba(2, 132, 199, 0.12);
 }
 
 // Dark mode — toggled by adding `html.dark` (set in App.vue from
@@ -90,4 +100,12 @@ html.dark {
     #0284c7 60%,
     #38bdf8 100%
   );
+
+  // Favorite on dark surfaces — use the lighter teal so the
+  // filled heart stays visible against the near-black card bg.
+  // Element Plus darkens the primary toward black on dark mode,
+  // so we re-anchor to the light variant (#38bdf8) explicitly.
+  --it-favorite:        #38bdf8;
+  --it-favorite-soft:   rgba(56, 189, 248, 0.10);
+  --it-favorite-softer: rgba(56, 189, 248, 0.16);
 }

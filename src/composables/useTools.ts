@@ -17,14 +17,18 @@ export interface Tool {
   isNew?: boolean
 }
 
+// Every tool gets a UNIQUE icon so the home grid + sidebar can
+// be scanned at a glance. SM4 vs AES were both `lock` previously;
+// now SM4 is `shield` (national-cipher security barrier) and AES
+// is `key` (symmetric-key cryptography).
 const rawTools: Tool[] = [
-  { path: '/encryption/SM4',  i18nKey: 'tools.sm4',       icon: 'lock' },
-  { path: '/encryption/AES',  i18nKey: 'tools.aes',       icon: 'lock' },
-  { path: '/base64',          i18nKey: 'tools.base64',    icon: 'coin' },
-  { path: '/timestamp',       i18nKey: 'tools.timestamp', icon: 'timer' },
-  { path: '/color',           i18nKey: 'tools.color',     icon: 'brush' },
-  { path: '/format',          i18nKey: 'tools.format',    icon: 'document' },
-  { path: '/contrast',        i18nKey: 'tools.contrast',  icon: 'code' },
+  { path: '/encryption/SM4',  i18nKey: 'tools.sm4',       icon: 'shield' },
+  { path: '/encryption/AES',  i18nKey: 'tools.aes',       icon: 'key' },
+  { path: '/base64',          i18nKey: 'tools.base64',    icon: 'binary' },
+  { path: '/timestamp',       i18nKey: 'tools.timestamp', icon: 'clock' },
+  { path: '/color',           i18nKey: 'tools.color',     icon: 'palette' },
+  { path: '/format',          i18nKey: 'tools.format',    icon: 'braces' },
+  { path: '/contrast',        i18nKey: 'tools.contrast',  icon: 'diff' },
   { path: '/calendar',        i18nKey: 'tools.calendar',  icon: 'calendar' },
 ]
 

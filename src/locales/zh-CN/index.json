@@ -40,6 +40,7 @@
       "favorites": "我的收藏"
     },
     "banner": {
+      "title": "关注我们",
       "desc": "如果对您有帮助，请 Star {github}、{gitee}，感谢您的支持！"
     }
   },
