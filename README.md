@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="./src/images/logo.svg" alt="gzzz-tools logo" width="60" />
-
 # gzzz-tools
 
 ### 面向开发者的在线工具集合 —— 加密 / 格式化 / 转换 / 时间，一站搞定
