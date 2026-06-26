@@ -12,10 +12,12 @@
   "dependencies": {
     "@vueuse/core": "^10.9.0",
     "axios": "^1.5.1",
+    "crypto-js": "^4.2.0",
     "element-plus": "^2.3.12",
     "highlight.js": "^11.9.0",
     "js-base64": "^3.7.5",
     "json-editor-vue": "^0.17.3",
+    "sm-crypto": "^0.4.0",
     "sql-formatter": "^15.8.2",
     "vue": "^3.3.4",
     "vue-axios": "^3.5.2",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "@iconify-json/ep": "^1.1.12",
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^20.6.0",
     "@vitejs/plugin-vue": "^4.3.4",
     "less": "^4.2.0",

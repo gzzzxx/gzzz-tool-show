@@ -43,8 +43,8 @@
             <el-option label="CTR" value="CTR" />
           </el-select>
         </el-form-item>
-        <el-button type="success" class="bu" @click="encrypt()">加密</el-button>
-        <el-button type="info" class="bu" @click="decrypt()">解密</el-button>
+        <el-button type="success" class="bu" @click="run('enc')">加密</el-button>
+        <el-button type="info" class="bu" @click="run('dec')">解密</el-button>
         <el-button class="bu" @click="copyData()">复制结果</el-button>
         <el-button class="bu" @click="clear()" style="margin-bottom:0 !important;">清空</el-button> 
       </el-col>
@@ -122,62 +122,52 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue';
-import { sm4Encrypt , sm4Decrypt } from '../../api/index.js';
 import { ElMessage } from 'element-plus';
+import { sm4Encrypt, sm4Decrypt, aesEncrypt, aesDecrypt, type CipherParams } from '../../utils/crypto';
 
 const form = reactive({
-  algorithmName: 'SM4',
+  algorithmName: 'SM4' as 'SM4' | 'AES',
   data: '',
   key: '',
   iv: '',
   result: '',
-  dataType: 'TEXT',
-  resultType: 'TEXT',
-  keyType: 'BASE64',
-  mode: 'ECB'
+  dataType: 'TEXT' as 'TEXT' | 'BASE64' | 'HEX',
+  resultType: 'TEXT' as 'TEXT' | 'BASE64' | 'HEX',
+  keyType: 'BASE64' as 'TEXT' | 'BASE64' | 'HEX',
+  mode: 'ECB' as 'ECB' | 'CBC' | 'CTR'
 })
 
+const props = defineProps<{ algorithm: string }>()
 
-const obj = defineProps({
-  algorithm : String
-})
-
-function encrypt() {
-  form.algorithmName = obj.algorithm;
-  sm4Encrypt(form).then((res) => {
-    if (res.code == 200) {
-      form.result = res.data.data
-      ElMessage.success({message: '加密成功'})
-    }
-  })
-}
-
-function decrypt() {
-  form.algorithmName = obj.algorithm;
-  sm4Decrypt(form).then((res) => {
-    if (res.code == 200) {
-      form.result = res.data.data
-      ElMessage.success({message: '解密成功'})
-    }
-  })
+/** 同步跑加解密（纯前端，旧的 /sm4/* 后端接口已不再调用） */
+function run(op: 'enc' | 'dec') {
+  form.algorithmName = (props.algorithm as 'SM4' | 'AES') ?? 'SM4'
+  try {
+    const fn = form.algorithmName === 'AES'
+      ? (op === 'enc' ? aesEncrypt : aesDecrypt)
+      : (op === 'enc' ? sm4Encrypt : sm4Decrypt)
+    form.result = fn({ ...form })
+    ElMessage.success({ message: op === 'enc' ? '加密成功' : '解密成功' })
+  } catch (e: any) {
+    ElMessage.error({ message: e?.message ?? '处理失败' })
+  }
 }
 
 function copyData() {
   navigator.clipboard.writeText(form.result).then(() => {
     ElMessage.success({message: '复制成功'})
-});
+  })
 }
 
 function clear() {
-  form.data = '';
-  form.key = '';
-  form.iv = '';
-  form.result = '';
+  form.data = ''
+  form.key = ''
+  form.iv = ''
+  form.result = ''
 }
 </script>
 
 <style lang="less" scoped>
-
 .bu {
   width: 100%;
   margin-top: 14px !important;
@@ -192,31 +182,19 @@ function clear() {
   width: 100% !important;
 }
 
-// .ep-button--primary {
-//     --ep-button-bg-color: #409eff;
-//     --ep-button-hover-bg-color: #409eff;
-// }
-// .ep-button--primary:hover {
-//     --ep-button-hover-bg-color: #79bbff;
-// }
-
-
 :deep(.ep-textarea__inner::-webkit-scrollbar) {
-     width: 6px ;
-     height: 6px ;
+  width: 6px;
+  height: 6px;
 }
 :deep(.ep-textarea__inner::-webkit-scrollbar-thumb) {
-    border-radius: 3px ;
-      -moz-border-radius: 3px ;
-      -webkit-border-radius: 3px ;
-      background-color: #c3c3c3 ;
+  border-radius: 3px;
+  background-color: #c3c3c3;
 }
 :deep(.ep-textarea__inner::-webkit-scrollbar-track) {
-    background-color: transparent ;
+  background-color: transparent;
 }
 :deep(.ep-text) {
   line-height: 24px;
 }
-
 </style>
 
