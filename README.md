@@ -10,9 +10,11 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript)](https://www.typescriptlang.org)
 [![Element Plus](https://img.shields.io/badge/Element%20Plus-2.3-409EFF)](https://element-plus.org)
 
-[**🌐 在线体验**](https://gzzz.pro/) · [**🐛 报告 Bug**](../../issues) · [**💡 功能建议**](../../issues/new)
+[**🌐 在线体验**](https://gzzz.pro/) · [**💡 功能建议**](../../issues)
 
 </div>
+
+---
 
 ## 📖 简介
 
@@ -93,7 +95,7 @@ Issue 反馈请使用对应模板（Bug 报告 / 功能建议）。
 ## 📮 联系方式
 
 - 项目主页：[https://gzzz.pro/](https://gzzz.pro/)
-- Issue：[GitHub Issues](https://github.com/gzzzxx/gzzz-tools/issues)
+- Issue：[GitHub Issues](../../issues)
 
 ---
 
