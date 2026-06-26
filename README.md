@@ -14,8 +14,6 @@
 
 </div>
 
----
-
 ## 📖 简介
 
 **gzzz-tools** 是一套面向开发者的在线工具集合，整合了日常开发中最常用的 11 个工具，涵盖**加密、格式化、转换、时间**四大类。所有工具均在浏览器本地运行，**数据不离开你的电脑**，无需注册、无广告、无水印，打开即用。
@@ -53,8 +51,10 @@
 ### 本地启动
 
 ```bash
-git clone https://gitee.com/gzzzxx/gzzz-tools
+# github
 git clone https://github.com/gzzzxx/gzzz-tools
+# gitee
+git clone https://gitee.com/gzzzxx/gzzz-tools
 cd gzzz-tools
 npm install
 npm run dev          # 访问 http://localhost:1000
@@ -95,7 +95,7 @@ Issue 反馈请使用对应模板（Bug 报告 / 功能建议）。
 ## 📮 联系方式
 
 - 项目主页：[https://gzzz.pro/](https://gzzz.pro/)
-- Issue：[GitHub Issues](../../issues)
+- Issue：[Issues](../../issues)
 
 ---
 
