@@ -1,13 +1,17 @@
 // =====================================================================
 // _variables.scss — shared design tokens for the it-tools-style theme
 // Aligned with docs/it-tools-clone/design.md §2.
-// Two layers:
+// Three layers:
 //   (1) SCSS variables ($it-radius, $it-card-padding, ...) used at
 //       compile time inside our own *.scss files.
 //   (2) CSS custom properties (--it-*) used at runtime so that
 //       element-plus <el-card> / utility classes / runtime theming
 //       can read the same tokens. The light/dark split is handled
 //       purely with CSS variables — no Sass mix.
+//   (3) Brand color tokens (--brand-*) — SINGLE SOURCE for the
+//       project's accent palette. Tweaking --brand-primary cascades
+//       through every gradient / hover / favorite color in the app.
+//       Don't hardcode the brand hex anywhere outside this file.
 // =====================================================================
 
 // --- SCSS tokens (compile-time, not theme-aware) ----------------------
@@ -25,8 +29,37 @@ $it-radius-lg:     12px;
 // blue, primary anchored on royal blue (#2563eb) for a calm "dev-tool"
 // tone (GitHub / Linear / Vercel adjacent).
 :root {
-  // Surfaces — slate pushed toward blue (was #f1f5f9)
-  --it-bg:               #eff4fb;
+  // === Brand palette — single source of truth =====================
+  // Change --brand-primary here and every accent in the app follows.
+  // Light-mode values are the historical project defaults; dark-mode
+  // overrides live in the html.dark block further down.
+  --brand-primary:        #2563eb;                       // royal blue (blue-600)
+  --brand-primary-deep:   #1e3a8a;                       // gradient head (blue-900)
+  --brand-primary-light:  #60a5fa;                       // gradient tail (blue-400)
+  --brand-primary-strong: #1e40af;                       // light-mode link hover (blue-800)
+  --brand-primary-glow:   rgba(37, 99, 235, 0.67);       // = #2563ebaa, logo drop-shadow
+  --brand-primary-soft:   rgba(37, 99, 235, 0.08);       // favorite-soft on light cards
+  --brand-primary-softer: rgba(37, 99, 235, 0.12);       // favorite-softer on light cards
+  --brand-tint:           rgba(125, 211, 252, 0.12);     // sky-300 12% — search icon/badge tint
+  --brand-tint-strong:   rgba(125, 211, 252, 0.30);     // sky-300 30% — search scrollbar thumb
+
+  // === Derived gradients (royal-blue family) ======================
+  // Sponsor button (header) — 135deg two-stop.
+  --gradient-sponsor:     linear-gradient(135deg,
+                            var(--brand-primary),
+                            var(--brand-primary-light));
+  // Sidebar logo curve + active menu bar — 135deg deep→light.
+  --gradient-sider-bar:   linear-gradient(135deg,
+                            var(--brand-primary-deep),
+                            var(--brand-primary-light));
+  // "Follow us" banner — 48deg three-stop royal-blue sweep.
+  --gradient-follow:      linear-gradient(48deg,
+                            var(--brand-primary-deep)  0%,
+                            var(--brand-primary)      60%,
+                            var(--brand-primary-light) 100%);
+
+  // === Surfaces — neutral cool gray (was #eff4fb which read as "灰扑扑的蓝") ===
+  --it-bg:               #f5f7fa;
   --it-bg-elevated:      #ffffff;
 
   // Text — deeper slate for stronger contrast against the bluer bg
@@ -47,13 +80,8 @@ $it-radius-lg:     12px;
   --it-sider-hover:     rgba(15, 23, 42, 0.06);
   --it-sider-border:    #dbe4f0;
 
-  // Banner — royal-blue gradient (sky-700/600/400 → blue-900/600/400)
-  --it-follow-banner-bg: linear-gradient(
-    48deg,
-    #1e3a8a 0%,
-    #2563eb 60%,
-    #60a5fa 100%
-  );
+  // Banner — same royal-blue gradient as light mode (theme-agnostic).
+  --it-follow-banner-bg: var(--gradient-follow);
 
   // Sizing / spacing aliases (also exposed as CSS vars for runtime use)
   --it-radius:        #{$it-radius};
@@ -62,14 +90,19 @@ $it-radius-lg:     12px;
   --it-section-gap:   #{$it-section-gap};
   --it-page-padding:  #{$it-page-padding};
 
-  // Favorite / 收藏 — royal blue (matches --el-color-primary), so the
-  // filled heart on a tool card + the heart icon on the sidebar's
-  // "我的收藏" group both read as "this is the project's accent
-  // color". Resolves to --el-color-primary so any future theme tweak
-  // (e.g. switching the Element Plus primary) carries through.
-  --it-favorite:        var(--el-color-primary, #2563eb);
-  --it-favorite-soft:   rgba(37, 99, 235, 0.08);
-  --it-favorite-softer: rgba(37, 99, 235, 0.12);
+  // Favorite / 收藏 — points at the brand token so changing --brand-primary
+  // ripples to the filled heart, sidebar "我的收藏" header, etc.
+  --it-favorite:        var(--brand-primary);
+  --it-favorite-soft:   var(--brand-primary-soft);
+  --it-favorite-softer: var(--brand-primary-softer);
+
+  // === Drag / ghost feedback (sky family — independent of brand) ==
+  // These are intentionally NOT tied to --brand-primary: they signal
+  // "transient drag state" with a soft sky tint that stays cool even
+  // when the brand palette switches to purple / green / etc.
+  --ghost-border:        rgba(56, 189, 248, 0.55);       // sky-400 55%
+  --ghost-bg:            rgba(56, 189, 248, 0.06);       // sky-400 6%
+  --drag-shadow:         rgba(2, 132, 199, 0.28);        // sky-600 28% box-shadow
 }
 
 // Dark mode — toggled by adding `html.dark` (set in App.vue from
@@ -78,7 +111,21 @@ $it-radius-lg:     12px;
 // surfaces stay neutral so the royal-blue primary + banner do the
 // "blue talking", instead of the background itself screaming blue.
 html.dark {
-  // Surfaces — Apple-system-style gray-black; no blue undertone
+  // === Brand palette — dark-mode overrides =======================
+  // Re-anchored lighter (blue-500) so the filled heart stays visible
+  // against the gray-black card bg. Element Plus darkens the primary
+  // toward black on dark mode, so we shift up one shade here.
+  --brand-primary:        #3b82f6;                       // blue-500
+  --brand-primary-deep:   #1e3a8a;                       // unchanged (gradient head)
+  --brand-primary-light:  #93c5fd;                       // blue-300 — link hover on dark
+  --brand-primary-strong: #60a5fa;                       // blue-400 — link default on dark
+  --brand-primary-glow:   rgba(59, 130, 246, 0.67);
+  --brand-primary-soft:   rgba(59, 130, 246, 0.12);
+  --brand-primary-softer: rgba(59, 130, 246, 0.18);
+  --brand-tint:           rgba(125, 211, 252, 0.16);     // slightly more visible on dark
+  --brand-tint-strong:   rgba(125, 211, 252, 0.36);
+
+  // === Surfaces — Apple-system-style gray-black; no blue undertone
   --it-bg:               #121214;
   --it-bg-elevated:      #1e1e22;
 
@@ -91,7 +138,7 @@ html.dark {
   // still feel lifted off the lighter gray-black bg
   --it-border:           #2a2a30;
   --it-card-shadow:        0 1px 2px 0 rgb(0 0 0 / 0.6);
-  --it-card-shadow-hover:  0 4px 12px rgb(0 0 0 / 0.7);
+  --it-card-shadow-hover:  0 10px 12px rgb(0 0 0 / 0.7);
 
   // Sidebar (dark) — sits between bg and elevated for clear hierarchy
   --it-sider-bg:        #17171a;
@@ -100,21 +147,12 @@ html.dark {
   --it-sider-hover:     rgba(255, 255, 255, 0.05);
   --it-sider-border:    rgba(255, 255, 255, 0.06);
 
-  // Banner — same royal-blue gradient as light mode (theme-agnostic).
+  // Banner — same gradient as light mode (theme-agnostic by design).
   // Against the gray-black bg the blue banner pops as the main color
   // carrier in the layout.
-  --it-follow-banner-bg: linear-gradient(
-    48deg,
-    #1e3a8a 0%,
-    #2563eb 60%,
-    #60a5fa 100%
-  );
+  --it-follow-banner-bg: var(--gradient-follow);
 
-  // Favorite on dark surfaces — use the lighter blue-500 (#3b82f6)
-  // so the filled heart stays visible against the gray-black card bg.
-  // Element Plus darkens the primary toward black on dark mode, so we
-  // re-anchor to the lighter blue variant explicitly.
-  --it-favorite:        #3b82f6;
-  --it-favorite-soft:   rgba(59, 130, 246, 0.12);
-  --it-favorite-softer: rgba(59, 130, 246, 0.18);
+  // Favorite — in dark mode, --brand-primary is the lighter blue-500,
+  // so --it-favorite: var(--brand-primary) from :root already gives us
+  // the right value here. No explicit override needed.
 }

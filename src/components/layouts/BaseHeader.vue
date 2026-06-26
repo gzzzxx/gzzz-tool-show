@@ -435,15 +435,26 @@ onUnmounted(() => {
 
   &:hover {
     background: var(--ah-hover);
-color: var(--el-color-primary, #2563eb);
+color: var(--brand-primary);
   }
   &:focus-visible {
-    outline: 2px solid var(--el-color-primary, #2563eb);
+    outline: 2px solid var(--brand-primary);
     outline-offset: 1px;
   }
 }
 
 .app-header__lang-text { font-size: 13px; font-weight: 500; color: var(--ah-mute); }
+
+// Language switch button — variable-width label ("中文" / "English")
+// can't fit a fixed 36×36 icon-btn sizing, so it expands to wrap the
+// full label with horizontal padding. The hover background now covers
+// the whole word instead of cutting "English" mid-character, and the
+// 4px gap to the next icon-btn (set on .app-header__right) keeps the
+// spacing consistent with the other header buttons.
+.app-header__lang-btn {
+  width: auto;
+  padding: 0 10px;
+}
 
 // Dropdown item — keep the check mark on the right of the label so the
 // active option is obvious in either direction.
@@ -453,7 +464,7 @@ color: var(--el-color-primary, #2563eb);
   gap: 8px;
   min-width: 100px;
 }
-.app-header__lang-item-check { color: var(--el-color-primary, #2563eb); }
+.app-header__lang-item-check { color: var(--brand-primary); }
 
 // Strip the el-dropdown's caret icon — our button uses the language
 // label as the only affordance, an extra caret looks noisy.
@@ -483,7 +494,7 @@ color: var(--el-color-primary, #2563eb);
   transition: border-color 0.15s ease, background-color 0.15s ease;
 
   &:focus-within {
-    border-color: var(--el-color-primary, #2563eb);
+    border-color: var(--brand-primary);
     background: rgba(0, 0, 0, 0.02);
   }
 }
@@ -551,7 +562,7 @@ color: var(--el-color-primary, #2563eb);
   align-items: center;
   height: 32px;
   padding: 0 14px;
-  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  background: var(--gradient-sponsor);
   color: #fff;
   border: none;
   border-radius: 8px;

@@ -235,7 +235,7 @@ defineExpose({ handleKeydown })
 .search-palette__count {
   font-size: 12px;
   color: var(--it-text-tertiary);
-  background-color: rgba(125, 211, 252, 0.12);
+  background-color: var(--brand-tint);
   padding: 1px 8px;
   border-radius: 999px;
 }
@@ -250,7 +250,7 @@ defineExpose({ handleKeydown })
 
   &::-webkit-scrollbar { width: 6px; }
   &::-webkit-scrollbar-thumb {
-    background: rgba(125, 211, 252, 0.3);
+    background: var(--brand-tint-strong);
     border-radius: 3px;
   }
 }
@@ -270,7 +270,7 @@ defineExpose({ handleKeydown })
     // because the Element Plus CSS-var layer isn't always injected at
     // :root on this project; falling back to --el-color-primary would
     // resolve to an empty value and leave the row transparent.
-    background-color: var(--el-color-primary, #2563eb);
+    background-color: var(--brand-primary);
     color: #fff;
 
     .search-palette__desc { color: rgba(255, 255, 255, 0.85); }
@@ -289,7 +289,7 @@ defineExpose({ handleKeydown })
   height: 32px;
   flex-shrink: 0;
   border-radius: 6px;
-  background-color: rgba(125, 211, 252, 0.12);
+  background-color: var(--brand-tint);
   color: var(--it-text-tertiary);
 }
 

@@ -130,16 +130,16 @@ function onDragEnd() {
     &:active { cursor: grabbing; }
 
     &.home-page__cell--ghost {
-      border-color: rgba(56, 189, 248, 0.55);
+      border-color: var(--ghost-border);
       border-style: dashed;
-      background-color: rgba(56, 189, 248, 0.06);
+      background-color: var(--ghost-bg);
       opacity: 0.55;
     }
 
     &.home-page__cell--drag {
-      border-color: var(--el-color-primary, #2563eb);
+      border-color: var(--brand-primary);
       background-color: var(--el-color-primary-light-9, #ecfeff);
-      box-shadow: 0 10px 24px rgba(2, 132, 199, 0.28);
+      box-shadow: 0 10px 24px var(--drag-shadow);
       cursor: grabbing;
       transform: rotate(-1.5deg);
     }

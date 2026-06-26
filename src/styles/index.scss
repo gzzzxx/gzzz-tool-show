@@ -42,16 +42,16 @@ body {
 
 // ---------------------------------------------------------------------
 // Global link style
-// Inherit Element Plus primary for the default link color so we stay
-// consistent with the rest of the UI (ElButton / ElTag etc.).
+// Inherit the project brand primary for the default link color so we stay
+// consistent with the rest of the UI (ElButton / ElTag / etc.).
 // ---------------------------------------------------------------------
 a {
-  color: var(--el-color-primary);
+  color: var(--brand-primary);
   text-decoration: none;
   transition: color 0.2s ease;
 
   &:hover {
-    color: var(--el-color-primary-light-3);
+    color: var(--brand-primary-strong);
   }
 }
 
@@ -62,5 +62,5 @@ code {
   border-radius: 2px;
   padding: 2px 4px;
   background-color: var(--el-color-primary-light-9);
-  color: var(--el-color-primary);
+  color: var(--brand-primary);
 }
