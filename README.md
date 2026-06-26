@@ -1,9 +1,8 @@
 <div align="center">
 
-<div style="display: inline-flex; align-items: center; gap: 16px;">
-  <img src="src/images/logo.svg" alt="gzzz-tools logo" width="60" />
-  <h1 style="margin: 0;">gzzz-tools</h1>
-</div>
+<img src="./src/images/logo.svg" alt="gzzz-tools logo" width="60" />
+
+# gzzz-tools
 
 ### 面向开发者的在线工具集合 —— 加密 / 格式化 / 转换 / 时间，一站搞定
 
