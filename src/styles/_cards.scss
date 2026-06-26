@@ -17,7 +17,7 @@
 // ---------------------------------------------------------------------
 .it-page-content {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 $it-page-padding;   // desktop default = 26px
 
@@ -56,6 +56,10 @@
   color: var(--it-text-primary);
   cursor: pointer;
   text-decoration: none;
+  // Center the (head + name + desc) stack vertically inside the fixed
+  // 150px card. Without this the stack anchors to the top and leaves
+  // a noticeable gap at the bottom on shorter descriptions.
+  justify-content: center;
   // Fixed height matching the FollowBanner (150px). Using
   // `height` (not `min-height`) so every tool card is exactly the
   // same height as the banner, regardless of description length.
@@ -151,6 +155,10 @@
   // overflow is clipped by the 2-line clamp on .__desc.
   height: 150px;
   box-sizing: border-box;
+  // Center the (icon + title + desc) stack vertically — mirror what we
+  // did for .it-tool-card so the banner reads at the same optical
+  // center as the tool cards next to it.
+  justify-content: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {

@@ -120,7 +120,12 @@ function onToggleFav() {
 // (Vue 3 scoped CSS adds a data-v hash to selectors; we deliberately
 // avoid touching .it-tool-card from here to keep the cascade simple.)
 .tool-card__link {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  // Center the (head + name + desc) stack inside
+                              // the 100%-height link wrapper. Without this
+                              // the stack anchors to the top because the
+                              // link already fills the parent .it-tool-card.
   text-decoration: none;
   color: inherit;
   height: 100%;

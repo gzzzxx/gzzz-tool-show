@@ -149,7 +149,7 @@ function onDragEnd() {
     margin: 25px 0 12px;
     font-size: 14px;
     font-weight: 600;
-    color: #cbd5e1;
+    color: var(--it-text-secondary);
     letter-spacing: 0.02em;
   }
   &__section-title-row {
