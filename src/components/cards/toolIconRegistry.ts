@@ -105,6 +105,19 @@ export const toolIconRegistry: Record<string, IconRender> = {
     h('rect', { x: 3, y: 5, width: 18, height: 16, rx: 2 }),
     h('path', { d: 'M3 10h18M8 3v4M16 3v4' }),
   ]),
+
+  // Text stats — three ascending bars (柱状图), the universal
+  // "statistics / 统计" glyph. Reads as "count + compare" at
+  // thumbnail size and pairs naturally with the textStats tool
+  // name. Picked over a pure "#123" counter because the bars
+  // hint at a *distribution* of values, which is what the tool
+  // surfaces (chars / words / lines / reading time, etc.).
+  bar: () => h('g', null, [
+    h('line', { x1: 4,  y1: 20, x2: 20, y2: 20 }),
+    h('rect', { x: 6,  y: 13, width: 3, height: 6,  rx: 0.5 }),
+    h('rect', { x: 11, y: 9,  width: 3, height: 10, rx: 0.5 }),
+    h('rect', { x: 16, y: 4,  width: 3, height: 15, rx: 0.5 }),
+  ]),
 }
 
 /**

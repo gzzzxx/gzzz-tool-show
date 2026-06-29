@@ -108,6 +108,47 @@
     "hash": {
       "name": "Hash Calculator",
       "desc": "MD5 / SHA-1 / SHA-256 / SHA-384 / SHA-512 digests"
+    },
+    "textStats": {
+      "name": "Text Statistics",
+      "desc": "Character/word/line/paragraph counts, CJK vs Latin breakdown, reading time"
+    }
+  },
+  "textStatsPage": {
+    "input": {
+      "placeholder": "Paste or type text to analyze ...",
+      "clear": "Clear",
+      "meta": "{chars} chars · {bytes} bytes"
+    },
+    "group": {
+      "basic": "Basic",
+      "lexical": "Lexical",
+      "composition": "Composition",
+      "reading": "Reading"
+    },
+    "label": {
+      "chars": "Characters (with spaces)",
+      "charsNoSpace": "Characters (no spaces)",
+      "bytes": "Bytes (UTF-8)",
+      "lines": "Total lines",
+      "nonEmptyLines": "Non-empty lines",
+      "paragraphs": "Paragraphs",
+      "words": "Words",
+      "sentences": "Sentences",
+      "cjk": "CJK chars",
+      "ascii": "Latin letters",
+      "digits": "Digits",
+      "punctuation": "Punctuation",
+      "spaces": "Whitespace",
+      "others": "Other"
+    },
+    "reading": {
+      "label": "Estimated reading time",
+      "empty": "—",
+      "seconds": "{n} s",
+      "minutes": "{n} m {s} s",
+      "minutesOnly": "{n} min",
+      "cpm": "Rate"
     }
   }
 }

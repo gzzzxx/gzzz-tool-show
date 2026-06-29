@@ -108,6 +108,47 @@
     "hash": {
       "name": "Hash 计算",
       "desc": "MD5 / SHA-1 / SHA-256 / SHA-384 / SHA-512 摘要计算"
+    },
+    "textStats": {
+      "name": "文本统计",
+      "desc": "字符/词数/行数/段落/中英文字符构成及阅读时间估算"
+    }
+  },
+  "textStatsPage": {
+    "input": {
+      "placeholder": "输入要统计的文本 ...",
+      "clear": "清空",
+      "meta": "字符 {chars} · 字节 {bytes}"
+    },
+    "group": {
+      "basic": "基础",
+      "lexical": "词句",
+      "reading": "阅读",
+      "composition": "构成"
+    },
+    "label": {
+      "chars": "字符数（含空格）",
+      "charsNoSpace": "字符数（不含空格）",
+      "bytes": "字节数（UTF-8）",
+      "lines": "总行数",
+      "nonEmptyLines": "非空行数",
+      "paragraphs": "段落数",
+      "words": "词数",
+      "sentences": "句子数",
+      "cjk": "中文字符",
+      "ascii": "英文/字母",
+      "digits": "数字",
+      "punctuation": "标点",
+      "spaces": "空白",
+      "others": "其他"
+    },
+    "reading": {
+      "label": "预估阅读时间",
+      "empty": "—",
+      "seconds": "{n} 秒",
+      "minutes": "{n} 分 {s} 秒",
+      "minutesOnly": "{n} 分钟",
+      "cpm": "速率"
     }
   }
 }
