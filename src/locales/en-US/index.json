@@ -34,6 +34,12 @@
     },
     "favorites": "Favorites"
   },
+  "notFound": {
+    "title": "Page not found",
+    "desc": "The page you're looking for doesn't exist, or has been moved or removed. Try heading back home.",
+    "home": "Back to home",
+    "quickLabel": "Or try one of these popular tools"
+  },
   "home": {
     "section": {
       "tools": "All Tools",
@@ -112,6 +118,10 @@
     "textStats": {
       "name": "Text Statistics",
       "desc": "Character/word/line/paragraph counts, CJK vs Latin breakdown, reading time"
+    },
+    "crontab": {
+      "name": "Crontab Generator",
+      "desc": "Visual builder for crontab expressions, human-readable description, next run preview"
     }
   },
   "textStatsPage": {
@@ -150,5 +160,30 @@
       "minutesOnly": "{n} min",
       "cpm": "Rate"
     }
+  },
+  "crontabPage": {
+    "field": { "minute": "Minute", "hour": "Hour", "day": "Day", "month": "Month", "weekday": "Weekday" },
+    "range": { "minute": "0-59", "hour": "0-23", "day": "1-31", "month": "1-12", "weekday": "0-6 (0=Sun)" },
+    "mode": { "every": "Every", "step": "Step", "specific": "Specific", "range": "Range" },
+    "stepSuffix": { "minute": "min", "hour": "hr", "day": "day", "month": "mo", "weekday": "wk" },
+    "from": "From", "to": "To",
+    "expression": "Expression", "description": "Description", "nextRuns": "Next runs", "copy": "Copy", "copied": "Copied",
+    "parse": {
+      "label": "Parse from expression",
+      "placeholder": "Paste or type expression, e.g. * * * * *",
+      "button": "Parse",
+      "fieldCount": "Need 5 fields, got {n}",
+      "empty": "Please enter an expression"
+    },
+    "presets": "Presets", "preset": {
+      "everyMinute": "Every minute",
+      "every5Min": "Every 5 minutes",
+      "everyHour": "Every hour",
+      "everyDay9": "Daily at 09:00",
+      "everyWeekday9": "Weekdays at 09:00",
+      "everyMonth1": "1st of month 00:00"
+    },
+    "weekday": { "0": "Sun", "1": "Mon", "2": "Tue", "3": "Wed", "4": "Thu", "5": "Fri", "6": "Sat" },
+    "month": { "1": "Jan", "2": "Feb", "3": "Mar", "4": "Apr", "5": "May", "6": "Jun", "7": "Jul", "8": "Aug", "9": "Sep", "10": "Oct", "11": "Nov", "12": "Dec" }
   }
 }

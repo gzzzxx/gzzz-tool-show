@@ -34,6 +34,12 @@
     },
     "favorites": "我的收藏"
   },
+  "notFound": {
+    "title": "页面走丢了",
+    "desc": "您访问的页面不存在，或者已被移动、删除。先回到首页看看吧。",
+    "home": "回到首页",
+    "quickLabel": "或试试这些常用工具"
+  },
   "home": {
     "section": {
       "tools": "全部工具",
@@ -112,6 +118,10 @@
     "textStats": {
       "name": "文本统计",
       "desc": "字符/词数/行数/段落/中英文字符构成及阅读时间估算"
+    },
+    "crontab": {
+      "name": "Crontab 表达式",
+      "desc": "可视化生成 Crontab 表达式,自然语言描述,下次执行时间预览"
     }
   },
   "textStatsPage": {
@@ -150,5 +160,30 @@
       "minutesOnly": "{n} 分钟",
       "cpm": "速率"
     }
+  },
+  "crontabPage": {
+    "field": { "minute": "分钟", "hour": "小时", "day": "日", "month": "月", "weekday": "周" },
+    "range": { "minute": "0-59", "hour": "0-23", "day": "1-31", "month": "1-12", "weekday": "0-6 (0=周日)" },
+    "mode": { "every": "每", "step": "每隔", "specific": "指定", "range": "范围" },
+    "stepSuffix": { "minute": "分钟", "hour": "小时", "day": "天", "month": "个月", "weekday": "周" },
+    "from": "从", "to": "到",
+    "expression": "表达式", "description": "自然语言描述", "nextRuns": "下次执行时间", "copy": "复制", "copied": "已复制",
+    "parse": {
+      "label": "从表达式解析",
+      "placeholder": "粘贴或输入表达式,例如 * * * * *",
+      "button": "解析",
+      "fieldCount": "需要 5 个字段,当前 {n} 个",
+      "empty": "请输入表达式"
+    },
+    "presets": "常用预设", "preset": {
+      "everyMinute": "每分钟",
+      "every5Min": "每 5 分钟",
+      "everyHour": "每小时",
+      "everyDay9": "每天 09:00",
+      "everyWeekday9": "工作日 09:00",
+      "everyMonth1": "每月 1 日 00:00"
+    },
+    "weekday": { "0": "日", "1": "一", "2": "二", "3": "三", "4": "四", "5": "五", "6": "六" },
+    "month": { "1": "1月", "2": "2月", "3": "3月", "4": "4月", "5": "5月", "6": "6月", "7": "7月", "8": "8月", "9": "9月", "10": "10月", "11": "11月", "12": "12月" }
   }
 }
