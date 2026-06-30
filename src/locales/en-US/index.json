@@ -120,8 +120,8 @@
       "desc": "Character/word/line/paragraph counts, CJK vs Latin breakdown, reading time"
     },
     "crontab": {
-      "name": "Crontab Generator",
-      "desc": "Visual builder for crontab expressions, human-readable description, next run preview"
+      "name": "Crontab Parser",
+      "desc": "Parse crontab expressions with real-time human-readable description and validation"
     }
   },
   "textStatsPage": {
@@ -162,28 +162,51 @@
     }
   },
   "crontabPage": {
-    "field": { "minute": "Minute", "hour": "Hour", "day": "Day", "month": "Month", "weekday": "Weekday" },
-    "range": { "minute": "0-59", "hour": "0-23", "day": "1-31", "month": "1-12", "weekday": "0-6 (0=Sun)" },
-    "mode": { "every": "Every", "step": "Step", "specific": "Specific", "range": "Range" },
-    "stepSuffix": { "minute": "min", "hour": "hr", "day": "day", "month": "mo", "weekday": "wk" },
-    "from": "From", "to": "To",
-    "expression": "Expression", "description": "Description", "nextRuns": "Next runs", "copy": "Copy", "copied": "Copied",
-    "parse": {
-      "label": "Parse from expression",
-      "placeholder": "Paste or type expression, e.g. * * * * *",
-      "button": "Parse",
-      "fieldCount": "Need 5 fields, got {n}",
-      "empty": "Please enter an expression"
+    "placeholder": "* * * * *",
+    "options": {
+      "verbose": "Verbose",
+      "hour24": "Use 24 hour time format",
+      "daysStartAt0": "Days start at 0"
     },
-    "presets": "Presets", "preset": {
+    "error": {
+      "empty": "Please enter an expression",
+      "invalid": "This cron is invalid"
+    },
+    "diagram": {
+      "optional": "optional",
+      "seconds": "seconds",
+      "minute": "minute",
+      "hour": "hour",
+      "dayOfMonth": "day of month",
+      "month": "month",
+      "dayOfWeek": "day of week",
+      "sunday": "sunday=0",
+      "monthAlias": "OR jan,feb,mar,apr ...",
+      "weekdayAlias": "OR sun,mon ...",
+      "command": "command"
+    },
+    "symbolTableLabel": "Crontab symbol reference",
+    "symbol": {
+      "symbol": "Symbol",
+      "meaning": "Meaning",
+      "example": "Example",
+      "equivalent": "Equivalent",
+      "anyValue": "Any value",
+      "range": "Range of values",
+      "list": "List of values",
+      "step": "Step values",
       "everyMinute": "Every minute",
-      "every5Min": "Every 5 minutes",
-      "everyHour": "Every hour",
-      "everyDay9": "Daily at 09:00",
-      "everyWeekday9": "Weekdays at 09:00",
-      "everyMonth1": "1st of month 00:00"
-    },
-    "weekday": { "0": "Sun", "1": "Mon", "2": "Tue", "3": "Wed", "4": "Thu", "5": "Fri", "6": "Sat" },
-    "month": { "1": "Jan", "2": "Feb", "3": "Mar", "4": "Apr", "5": "May", "6": "Jun", "7": "Jul", "8": "Aug", "9": "Sep", "10": "Oct", "11": "Nov", "12": "Dec" }
+      "minutes1Through10": "Minutes 1 through 10",
+      "atMinutes1And10": "At minutes 1 and 10",
+      "every10Minutes": "Every 10 minutes",
+      "yearly": "Once every year at midnight of 1 January",
+      "annually": "Same as @yearly",
+      "monthly": "Once a month at midnight on the first day",
+      "weekly": "Once a week at midnight on Sunday morning",
+      "daily": "Once a day at midnight",
+      "midnight": "Same as @daily",
+      "hourly": "Once an hour at the beginning of the hour",
+      "reboot": "Run at startup"
+    }
   }
 }

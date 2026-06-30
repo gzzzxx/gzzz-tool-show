@@ -118,6 +118,20 @@ export const toolIconRegistry: Record<string, IconRender> = {
     h('rect', { x: 11, y: 9,  width: 3, height: 10, rx: 0.5 }),
     h('rect', { x: 16, y: 4,  width: 3, height: 15, rx: 0.5 }),
   ]),
+
+  // Crontab — clock + scheduled-events list. Small clock face on
+  // the left reads as "time", and the three lines of decreasing
+  // length on the right read as a sequence of future executions.
+  // Both `clock` (timestamp) and `calendar` (calendar) are taken,
+  // so this composite glyph is the only way to convey "scheduled
+  // runs" without colliding with either.
+  cron: () => h('g', null, [
+    h('circle', { cx: 7,  cy: 12, r: 4 }),
+    h('path',   { d: 'M7 9.5v2.8l2 1.2' }),
+    h('line',   { x1: 13, y1: 7,  x2: 21, y2: 7  }),
+    h('line',   { x1: 13, y1: 12, x2: 19, y2: 12 }),
+    h('line',   { x1: 13, y1: 17, x2: 17, y2: 17 }),
+  ]),
 }
 
 /**

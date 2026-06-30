@@ -41,6 +41,7 @@ export const tools: readonly ToolDefinition[] = [
   { path: '/sql',             component: () => import('~/views/sql/sql.vue'),              icon: 'database', nameKey: 'tools.sql.name',      descKey: 'tools.sql.desc',      category: 'dev' },
   { path: '/contrast',        component: () => import('~/views/contrast/contrast.vue'),    icon: 'diff',     nameKey: 'tools.contrast.name', descKey: 'tools.contrast.desc', category: 'dev' },
   { path: '/text-stats',      component: () => import('~/views/text-stats/text-stats.vue'),  icon: 'bar',      nameKey: 'tools.textStats.name', descKey: 'tools.textStats.desc', category: 'dev' },
+  { path: '/crontab',         component: () => import('~/views/crontab/crontab.vue'),        icon: 'cron',     nameKey: 'tools.crontab.name',   descKey: 'tools.crontab.desc',   category: 'dev' },
   // convert
   { path: '/base64',          component: () => import('~/views/base64/base64.vue'),         icon: 'binary',   nameKey: 'tools.base64.name',    descKey: 'tools.base64.desc',    category: 'convert' },
   { path: '/timestamp',       component: () => import('~/views/timestamp/timestamp.vue'),   icon: 'clock',    nameKey: 'tools.timestamp.name', descKey: 'tools.timestamp.desc', category: 'convert' },

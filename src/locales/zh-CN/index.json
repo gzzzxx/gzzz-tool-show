@@ -121,7 +121,7 @@
     },
     "crontab": {
       "name": "Crontab 表达式",
-      "desc": "可视化生成 Crontab 表达式,自然语言描述,下次执行时间预览"
+      "desc": "解析 Crontab 表达式,实时生成自然语言描述,支持校验"
     }
   },
   "textStatsPage": {
@@ -162,28 +162,51 @@
     }
   },
   "crontabPage": {
-    "field": { "minute": "分钟", "hour": "小时", "day": "日", "month": "月", "weekday": "周" },
-    "range": { "minute": "0-59", "hour": "0-23", "day": "1-31", "month": "1-12", "weekday": "0-6 (0=周日)" },
-    "mode": { "every": "每", "step": "每隔", "specific": "指定", "range": "范围" },
-    "stepSuffix": { "minute": "分钟", "hour": "小时", "day": "天", "month": "个月", "weekday": "周" },
-    "from": "从", "to": "到",
-    "expression": "表达式", "description": "自然语言描述", "nextRuns": "下次执行时间", "copy": "复制", "copied": "已复制",
-    "parse": {
-      "label": "从表达式解析",
-      "placeholder": "粘贴或输入表达式,例如 * * * * *",
-      "button": "解析",
-      "fieldCount": "需要 5 个字段,当前 {n} 个",
-      "empty": "请输入表达式"
+    "placeholder": "* * * * *",
+    "options": {
+      "verbose": "详细描述",
+      "hour24": "使用 24 小时制",
+      "daysStartAt0": "周日计为 0"
     },
-    "presets": "常用预设", "preset": {
+    "error": {
+      "empty": "请输入表达式",
+      "invalid": "无效的 cron 表达式"
+    },
+    "diagram": {
+      "optional": "可选",
+      "seconds": "秒",
+      "minute": "分钟",
+      "hour": "小时",
+      "dayOfMonth": "日",
+      "month": "月",
+      "dayOfWeek": "周",
+      "sunday": "周日=0",
+      "monthAlias": "或 jan,feb,mar,apr ...",
+      "weekdayAlias": "或 sun,mon ...",
+      "command": "command"
+    },
+    "symbolTableLabel": "cron 符号速查表",
+    "symbol": {
+      "symbol": "符号",
+      "meaning": "含义",
+      "example": "示例",
+      "equivalent": "等价于",
+      "anyValue": "任意值",
+      "range": "值的范围",
+      "list": "值列表",
+      "step": "步长",
       "everyMinute": "每分钟",
-      "every5Min": "每 5 分钟",
-      "everyHour": "每小时",
-      "everyDay9": "每天 09:00",
-      "everyWeekday9": "工作日 09:00",
-      "everyMonth1": "每月 1 日 00:00"
-    },
-    "weekday": { "0": "日", "1": "一", "2": "二", "3": "三", "4": "四", "5": "五", "6": "六" },
-    "month": { "1": "1月", "2": "2月", "3": "3月", "4": "4月", "5": "5月", "6": "6月", "7": "7月", "8": "8月", "9": "9月", "10": "10月", "11": "11月", "12": "12月" }
+      "minutes1Through10": "第 1 到 10 分钟",
+      "atMinutes1And10": "在第 1 和 10 分钟",
+      "every10Minutes": "每 10 分钟",
+      "yearly": "每年 1 月 1 日 0 点执行",
+      "annually": "同 @yearly",
+      "monthly": "每月 1 日 0 点执行",
+      "weekly": "每周日凌晨 0 点执行",
+      "daily": "每天 0 点执行",
+      "midnight": "同 @daily",
+      "hourly": "每小时整点执行",
+      "reboot": "启动时执行"
+    }
   }
 }
