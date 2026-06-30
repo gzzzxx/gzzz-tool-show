@@ -20,6 +20,12 @@
   max-width: 1600px;
   margin: 0 auto;
   padding: 0 $it-page-padding;   // desktop default = 26px
+  // `width: 100%` is content-box by default, so with our padding the box
+  // overflows the parent by 2×padding-px and `margin: 0 auto` resolves
+  // `auto` to a negative value to compensate — making the right edge sit
+  // past the viewport and any child grid look shifted right. border-box
+  // makes the padding eat into the 100% width instead.
+  box-sizing: border-box;
 
   @media (max-width: 1279px) {
     padding: 0 24px;

@@ -129,6 +129,10 @@ function onToggleFav() {
   text-decoration: none;
   color: inherit;
   height: 100%;
+  // Default flex item min-width is auto (= content min-width), which lets
+  // a long unbreakable token in the desc push the whole card past the
+  // grid track and trigger a horizontal page scrollbar.
+  min-width: 0;
 }
 
 .tool-card__head {

@@ -28,6 +28,12 @@ html,
 body {
   background-color: var(--it-bg);
   color: var(--it-text-primary);
+  // Safety net against accidental horizontal overflow on narrow viewports:
+  // any child (a stray SVG with no width, a long unbreakable string inside
+  // a grid item, etc.) gets clipped instead of creating a page-level
+  // horizontal scrollbar. `clip` over `hidden` so we don't establish a
+  // scroll container — important for sticky-positioned headers.
+  overflow-x: clip;
 }
 
 body {

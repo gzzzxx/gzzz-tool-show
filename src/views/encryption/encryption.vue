@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 0px 21% 0px 21%;">
+  <div class="encryption-page">
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
       <el-tab-pane label="SM4" name="SM4">
         <detail :algorithm="algorithm"/>
@@ -29,6 +29,17 @@ const handleClick = (tab: any) => {
 </script>
 
 <style lang="less" scoped>
+// 桌面端：保留 21% 留白，与原始设计一致；
+// 窄屏 (<992px)：收紧到 12px，避免内容被压到极窄。
+.encryption-page {
+  padding: 0 21%;
+}
+
+@media (max-width: 991.98px) {
+  .encryption-page {
+    padding: 0 12px;
+  }
+}
 
 // :deep(.ep-tabs__nav-scroll) {
 // 	width:50%;

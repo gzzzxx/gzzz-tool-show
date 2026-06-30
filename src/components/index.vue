@@ -94,12 +94,19 @@ function onDragEnd() {
 
   &__grid {
     display: grid;
-    grid-template-columns: 1fr;
+    // minmax(0, 1fr) on every breakpoint — without the explicit min:0,
+    // grid tracks default to min-content, so a long unbreakable string
+    // (tool name / desc) inside a card can blow the track wider than
+    // 1fr and create a horizontal scrollbar on the page.
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    box-sizing: border-box;
     column-gap: 12px;
     row-gap: 12px;
   }
   &__grid--with-banner,
-  &__grid--tools {
+  &__grid--tools,
+  &__grid--draggable {
     @media (min-width: 640px)  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     @media (min-width: 768px)  { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     @media (min-width: 1280px) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -125,6 +132,8 @@ function onDragEnd() {
     cursor: grab;
     border: 2px solid transparent;
     border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
     transition: border-color 0.15s ease, background-color 0.15s ease, opacity 0.15s ease;
 
     &:active { cursor: grabbing; }

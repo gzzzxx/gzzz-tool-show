@@ -1,7 +1,7 @@
 <template>
   <el-form :model="form" label-position="top">
-    <el-row :gutter="30" justify="center">
-      <el-col :span="18">
+    <el-row :gutter="rowGutter" justify="center">
+      <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="18">
         <el-form-item label="加密/解密内容">
           <el-input v-model="form.data" placeholder="加密/解密内容" type="textarea" :rows="6" resize='none'></el-input>
         </el-form-item>
@@ -15,7 +15,7 @@
           <el-input v-model="form.result" placeholder="加密/解密结果" disabled type="textarea" :rows="6" resize='none'></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
         <el-form-item label="加密/解密内容数据格式">
           <el-select v-model="form.dataType">
             <el-option label="文本（解密为Base64）" value="TEXT" />
@@ -46,7 +46,7 @@
         <el-button type="success" class="bu" @click="run('enc')">加密</el-button>
         <el-button type="info" class="bu" @click="run('dec')">解密</el-button>
         <el-button class="bu" @click="copyData()">复制结果</el-button>
-        <el-button class="bu" @click="clear()" style="margin-bottom:0 !important;">清空</el-button> 
+        <el-button class="bu" @click="clear()" style="margin-bottom:0 !important;">清空</el-button>
       </el-col>
     </el-row>
     <el-row style="margin:20px 0 0px 0px;text-align: left;">
@@ -121,7 +121,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
+import { useMediaQuery } from '@vueuse/core';
 import { ElMessage } from 'element-plus';
 import { sm4Encrypt, sm4Decrypt, aesEncrypt, aesDecrypt, type CipherParams } from '../../utils/crypto';
 
@@ -165,6 +166,11 @@ function clear() {
   form.iv = ''
   form.result = ''
 }
+
+// 窄屏把 el-row 的 gutter 从 30 收到 10：col 全宽堆叠时两侧各 15px
+// padding 太松散，会让 form 在 ~360px 屏宽下显得空旷。
+const isCompactGutter = useMediaQuery('(max-width: 991.98px)')
+const rowGutter = computed(() => isCompactGutter.value ? 10 : 30)
 </script>
 
 <style lang="less" scoped>
@@ -195,6 +201,27 @@ function clear() {
 }
 :deep(.ep-text) {
   line-height: 24px;
+}
+
+/* Mobile tweaks — desktop (≥992px) keeps the original layout untouched.
+   Below 992px the two columns stack full-width (controlled by the
+   :xs/:sm/:md props on el-col and the rowGutter computed), so we
+   tighten:
+   - 28px left indent for prose is too wide on phones (text wraps to one
+     short word per line)
+   - card body padding: default 20px eats too much of a 360px viewport
+   - form-item bottom margin: EP default 22px is fine on desktop, but
+     stacked vertically the form feels airy, so we keep it tight */
+@media (max-width: 767.98px) {
+  .text_left {
+    margin-left: 12px;
+  }
+  :deep(.ep-card__body) {
+    padding: 14px;
+  }
+  :deep(.ep-form-item) {
+    margin-bottom: 16px;
+  }
 }
 </style>
 
