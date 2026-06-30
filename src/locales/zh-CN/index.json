@@ -200,11 +200,11 @@
       "atMinutes1And10": "在第 1 和 10 分钟",
       "every10Minutes": "每 10 分钟",
       "yearly": "每年 1 月 1 日 0 点执行",
-      "annually": "同 @yearly",
+      "annually": "同 {'@yearly'}",
       "monthly": "每月 1 日 0 点执行",
       "weekly": "每周日凌晨 0 点执行",
       "daily": "每天 0 点执行",
-      "midnight": "同 @daily",
+      "midnight": "同 {'@daily'}",
       "hourly": "每小时整点执行",
       "reboot": "启动时执行"
     }

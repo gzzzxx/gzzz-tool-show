@@ -200,11 +200,11 @@
       "atMinutes1And10": "At minutes 1 and 10",
       "every10Minutes": "Every 10 minutes",
       "yearly": "Once every year at midnight of 1 January",
-      "annually": "Same as @yearly",
+      "annually": "Same as {'@yearly'}",
       "monthly": "Once a month at midnight on the first day",
       "weekly": "Once a week at midnight on Sunday morning",
       "daily": "Once a day at midnight",
-      "midnight": "Same as @daily",
+      "midnight": "Same as {'@daily'}",
       "hourly": "Once an hour at the beginning of the hour",
       "reboot": "Run at startup"
     }
