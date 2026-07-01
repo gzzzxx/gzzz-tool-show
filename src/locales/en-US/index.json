@@ -342,7 +342,7 @@
       "result": "Result"
     },
     "input": {
-      "placeholder": "Enter or paste XML ..."
+      "placeholder": "Enter XML ..."
     },
     "result": {
       "placeholder": "Formatted XML"
@@ -366,7 +366,7 @@
       "result": "Result"
     },
     "input": {
-      "placeholder": "Enter or paste SQL ..."
+      "placeholder": "Enter SQL ..."
     },
     "result": {
       "placeholder": "Formatted SQL"
@@ -390,7 +390,7 @@
       "result": "Result"
     },
     "input": {
-      "placeholder": "Enter or paste JSON ..."
+      "placeholder": "Enter JSON ..."
     },
     "result": {
       "placeholder": "Formatted JSON"
