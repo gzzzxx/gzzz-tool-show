@@ -132,6 +132,21 @@ export const toolIconRegistry: Record<string, IconRender> = {
     h('line',   { x1: 13, y1: 12, x2: 19, y2: 12 }),
     h('line',   { x1: 13, y1: 17, x2: 17, y2: 17 }),
   ]),
+
+  // Timer — stopwatch. Round face + top crown button (the
+  // physical "push to start" plunger unique to stopwatches) +
+  // two side clasps at ~10°/2° where the strap meets the case,
+  // plus an hour hand pointing to ~12 and a minute hand at ~2.
+  // Distinct from `clock` (timestamp tool) and `cron` (crontab
+  // tool) via the top crown + the asymmetric hand layout.
+  timer: () => h('g', null, [
+    h('circle', { cx: 12, cy: 14, r: 7 }),
+    h('line',   { x1: 12, y1: 14, x2: 12,   y2: 9.5 }),
+    h('line',   { x1: 12, y1: 14, x2: 15,   y2: 12 }),
+    h('rect',   { x: 10.5, y: 2, width: 3, height: 2, rx: 0.4 }),
+    h('line',   { x1: 5.5, y1: 6.5, x2: 7,    y2: 8 }),
+    h('line',   { x1: 18.5, y1: 6.5, x2: 17,  y2: 8 }),
+  ]),
 }
 
 /**

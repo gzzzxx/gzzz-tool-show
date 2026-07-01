@@ -122,6 +122,10 @@
     "crontab": {
       "name": "Crontab Parser",
       "desc": "Parse crontab expressions with real-time human-readable description and validation"
+    },
+    "timer": {
+      "name": "Timer",
+      "desc": "Stopwatch and countdown with lap recording and audio alert"
     }
   },
   "textStatsPage": {
@@ -207,6 +211,41 @@
       "midnight": "Same as {'@daily'}",
       "hourly": "Once an hour at the beginning of the hour",
       "reboot": "Run at startup"
+    }
+  },
+  "timerPage": {
+    "tab": {
+      "stopwatch": "Stopwatch",
+      "countdown": "Countdown"
+    },
+    "preset": {
+      "1min": "1 min",
+      "3min": "3 min",
+      "5min": "5 min",
+      "10min": "10 min",
+      "15min": "15 min",
+      "30min": "30 min",
+      "60min": "60 min"
+    },
+    "unit": {
+      "hour": "h",
+      "minute": "m",
+      "second": "s",
+      "cs": "cs"
+    },
+    "action": {
+      "start": "Start",
+      "pause": "Pause",
+      "resume": "Resume",
+      "reset": "Reset",
+      "lap": "Lap"
+    },
+    "lap": {
+      "lapTime": "Lap",
+      "totalTime": "Total"
+    },
+    "notify": {
+      "done": "Time's up!"
     }
   }
 }

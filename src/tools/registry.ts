@@ -48,4 +48,5 @@ export const tools: readonly ToolDefinition[] = [
   { path: '/color',           component: () => import('~/views/color/color.vue'),           icon: 'palette',  nameKey: 'tools.color.name',     descKey: 'tools.color.desc',     category: 'convert' },
   // time
   { path: '/calendar',        component: () => import('~/views/calendar/calendar.vue'),    icon: 'calendar', nameKey: 'tools.calendar.name', descKey: 'tools.calendar.desc', category: 'time' },
+  { path: '/timer',           component: () => import('~/views/timer/timer.vue'),          icon: 'timer',    nameKey: 'tools.timer.name',    descKey: 'tools.timer.desc',    category: 'time' },
 ] as const

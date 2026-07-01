@@ -122,6 +122,10 @@
     "crontab": {
       "name": "Crontab 表达式",
       "desc": "解析 Crontab 表达式,实时生成自然语言描述,支持校验"
+    },
+    "timer": {
+      "name": "计时器",
+      "desc": "秒表与倒计时,支持分段记录和声音提醒"
     }
   },
   "textStatsPage": {
@@ -207,6 +211,41 @@
       "midnight": "同 {'@daily'}",
       "hourly": "每小时整点执行",
       "reboot": "启动时执行"
+    }
+  },
+  "timerPage": {
+    "tab": {
+      "stopwatch": "秒表",
+      "countdown": "倒计时"
+    },
+    "preset": {
+      "1min": "1 分钟",
+      "3min": "3 分钟",
+      "5min": "5 分钟",
+      "10min": "10 分钟",
+      "15min": "15 分钟",
+      "30min": "30 分钟",
+      "60min": "60 分钟"
+    },
+    "unit": {
+      "hour": "时",
+      "minute": "分",
+      "second": "秒",
+      "cs": "百分秒"
+    },
+    "action": {
+      "start": "开始",
+      "pause": "暂停",
+      "resume": "继续",
+      "reset": "重置",
+      "lap": "分段"
+    },
+    "lap": {
+      "lapTime": "分段用时",
+      "totalTime": "累计用时"
+    },
+    "notify": {
+      "done": "倒计时结束!"
     }
   }
 }
