@@ -153,7 +153,6 @@ function copy(key: keyof HashResults) {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 8px;
 }
 
 .subtitle {
