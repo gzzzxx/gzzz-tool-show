@@ -383,5 +383,17 @@
       "copyEmpty": "Nothing to copy, please format first",
       "copyFailed": "Copy failed, please copy manually"
     }
+  },
+  "formatPage": {
+    "section": {
+      "source": "Source",
+      "result": "Result"
+    },
+    "input": {
+      "placeholder": "Enter or paste JSON ..."
+    },
+    "result": {
+      "placeholder": "Formatted JSON"
+    }
   }
 }

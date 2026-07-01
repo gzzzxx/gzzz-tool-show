@@ -48,10 +48,6 @@
         />
       </section>
 
-      <div class="sql-arrow" aria-hidden="true">
-        <el-icon :size="20"><ArrowRight /></el-icon>
-      </div>
-
       <section class="sql-card">
         <header class="sql-card__header">
           <span class="sql-card__title">{{ t('sqlPage.section.result') }}</span>
@@ -85,7 +81,7 @@
 <script lang="ts" setup>
 import { reactive, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
-import { ArrowRight, Delete, DocumentCopy, MagicStick, Minus } from '@element-plus/icons-vue'
+import { Delete, DocumentCopy, MagicStick, Minus } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { format as sqlFormat } from 'sql-formatter'
 import { useI18n } from 'vue-i18n'
@@ -225,13 +221,17 @@ watch(() => form.data, autoFormat)
   padding-right: 10px;
 }
 
-/* Two-card row + center arrow. flex:1 + min-height:0 so the
-   cards eat the leftover vertical space; align-items stretch
-   is the default — cards inherit the row's height, then their
-   textarea fills the card via its own flex chain. */
+/* Two-card row. flex:1 + min-height:0 so the cards eat the
+   leftover vertical space; align-items stretch is the default
+   — cards inherit the row's height, then their textarea fills
+   the card via its own flex chain. 1fr 1fr (no center column)
+   to match the JSON formatter's "equal width, no arrow" style
+   — the input/output relationship is implied by left/right
+   positioning alone, and dropping the arrow gives both cards
+   ~40px more horizontal space. */
 .sql-grid {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   align-items: stretch;
   flex: 1;
@@ -305,23 +305,8 @@ watch(() => form.data, autoFormat)
   box-shadow: none !important;
 }
 
-/* Arrow badge — brand-colored pill in the gutter. */
-.sql-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  min-height: 40px;
-  align-self: center;
-  border-radius: 50%;
-  background-color: var(--brand-primary-soft);
-  color: var(--brand-primary);
-}
-@media (max-width: 900px) {
-  .sql-arrow :deep(svg) {
-    transform: rotate(90deg);
-  }
-}
+/* Arrow badge removed — matches the JSON formatter's equal-
+   width "no arrow" style. */
 
 @media (max-width: 600px) {
   .sql-page { padding: 8px 2px; }

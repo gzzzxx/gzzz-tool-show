@@ -68,10 +68,6 @@
       </section>
 
       <!-- Arrow badge -->
-      <div class="xml-arrow" aria-hidden="true">
-        <el-icon :size="20"><ArrowRight /></el-icon>
-      </div>
-
       <!-- ============== Result card ============== -->
       <section class="xml-card">
         <header class="xml-card__header">
@@ -106,7 +102,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
-import { ArrowRight, Delete, DocumentCopy, MagicStick, Minus } from '@element-plus/icons-vue'
+import { Delete, DocumentCopy, MagicStick, Minus } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import xmlFormat from 'xml-formatter'
 import { useI18n } from 'vue-i18n'
@@ -241,15 +237,15 @@ watch([() => form.data, indent], () => autoFormat(form.data), { flush: 'post' })
   font-size: 1rem;
 }
 
-/* Two-card row + center arrow: 1fr | auto | 1fr.
-   flex:1 here so the grid (and its cards) eat the leftover
-   vertical space from .xml-page's flex column. align-items
-   stretch is the default — cards inherit the grid row's
-   height, then their textarea fills the card via its own
-   flex chain. */
+/* Two-card row. 1fr 1fr (no center column) matches the JSON
+   formatter's "equal width, no arrow" style — the input/output
+   relationship is implied by left/right positioning alone, and
+   dropping the arrow gives both cards ~40px more horizontal
+   space. flex:1 + min-height:0 so the cards eat the leftover
+   vertical space; align-items stretch is the default. */
 .xml-grid {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   align-items: stretch;
   flex: 1;
@@ -327,27 +323,6 @@ watch([() => form.data, indent], () => autoFormat(form.data), { flush: 'post' })
 }
 .xml-textarea :deep(.el-textarea__inner) {
   box-shadow: none !important;
-}
-
-/* Arrow badge — circular pill in the gutter between the two
-   cards. Brand-colored so it reads as the "transformation"
-   affordance. On <900px (single-column) it rotates to point
-   down and sits inline between the stacked cards. */
-.xml-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  min-height: 40px;
-  align-self: center;
-  border-radius: 50%;
-  background-color: var(--brand-primary-soft);
-  color: var(--brand-primary);
-}
-@media (max-width: 900px) {
-  .xml-arrow :deep(svg) {
-    transform: rotate(90deg);
-  }
 }
 
 /* Top toolbar. Button horizontal padding tightened from the
