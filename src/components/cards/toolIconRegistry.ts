@@ -147,6 +147,33 @@ export const toolIconRegistry: Record<string, IconRender> = {
     h('line',   { x1: 5.5, y1: 6.5, x2: 7,    y2: 8 }),
     h('line',   { x1: 18.5, y1: 6.5, x2: 17,  y2: 8 }),
   ]),
+
+  // QR Code — the three finder patterns (top-left, top-right,
+  // bottom-left) + scattered data modules in the bottom-right.
+  // The 3 finder squares are the universally recognizable QR
+  // affordance; the loose module dots hint at "encoded data"
+  // without drawing every module. Distinct from `binary` (base64)
+  // which is two solid bars.
+  qrcode: () => h('g', null, [
+    // Top-left finder pattern (outer square + inner solid square)
+    h('rect', { x: 3, y: 3, width: 7, height: 7, rx: 0.6 }),
+    h('rect', { x: 5, y: 5, width: 3, height: 3, rx: 0.3, fill: 'currentColor', stroke: 'none' }),
+    // Top-right finder pattern
+    h('rect', { x: 14, y: 3, width: 7, height: 7, rx: 0.6 }),
+    h('rect', { x: 16, y: 5, width: 3, height: 3, rx: 0.3, fill: 'currentColor', stroke: 'none' }),
+    // Bottom-left finder pattern
+    h('rect', { x: 3, y: 14, width: 7, height: 7, rx: 0.6 }),
+    h('rect', { x: 5, y: 16, width: 3, height: 3, rx: 0.3, fill: 'currentColor', stroke: 'none' }),
+    // Data modules (bottom-right area; filled so they read as
+    // "punch out of the matrix" rather than outline marks)
+    h('rect', { x: 12.5, y: 12.5, width: 2, height: 2, fill: 'currentColor', stroke: 'none' }),
+    h('rect', { x: 16,   y: 12.5, width: 2, height: 2, fill: 'currentColor', stroke: 'none' }),
+    h('rect', { x: 12.5, y: 16,   width: 2, height: 2, fill: 'currentColor', stroke: 'none' }),
+    h('rect', { x: 19,   y: 14,   width: 2, height: 2, fill: 'currentColor', stroke: 'none' }),
+    h('rect', { x: 14.5, y: 19,   width: 2, height: 2, fill: 'currentColor', stroke: 'none' }),
+    h('rect', { x: 17,   y: 17,   width: 2, height: 2, fill: 'currentColor', stroke: 'none' }),
+    h('rect', { x: 19.5, y: 19.5, width: 2, height: 2, fill: 'currentColor', stroke: 'none' }),
+  ]),
 }
 
 /**

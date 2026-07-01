@@ -95,6 +95,10 @@
       "name": "Color Converter",
       "desc": "HEX / RGB / HSL conversion with live preview"
     },
+    "qrcode": {
+      "name": "QR Code Generator",
+      "desc": "Generate QR codes from text/URL, custom colors & error correction, export as PNG/SVG"
+    },
     "format": {
       "name": "JSON Formatter",
       "desc": "Format / minify / validate JSON, pick fields"
@@ -247,5 +251,33 @@
     "notify": {
       "done": "Time's up!"
     }
+  },
+  "qrcodePage": {
+    "input": {
+      "label": "Content",
+      "placeholder": "Enter text or URL"
+    },
+    "options": {
+      "errorLevel": "Error correction",
+      "size": "Size",
+      "margin": "Margin",
+      "fg": "Foreground",
+      "bg": "Background"
+    },
+    "errorLevel": {
+      "L": "Low",
+      "M": "Medium",
+      "Q": "Quartile",
+      "H": "High"
+    },
+    "empty": "Enter content to generate a QR code",
+    "moduleCount": "Modules: {n}×{n}",
+    "action": {
+      "downloadPng": "Download PNG",
+      "downloadSvg": "Download SVG",
+      "copy": "Copy"
+    },
+    "copied": "Copied to clipboard",
+    "copyUnsupported": "Image copy is not supported in this browser, please download instead"
   }
 }

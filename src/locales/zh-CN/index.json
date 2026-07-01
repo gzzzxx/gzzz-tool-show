@@ -95,6 +95,10 @@
       "name": "颜色转换",
       "desc": "HEX/RGB/HSL 互转,实时预览"
     },
+    "qrcode": {
+      "name": "二维码生成",
+      "desc": "文本/网址生成二维码,可自定义颜色和纠错级别,导出 PNG/SVG"
+    },
     "format": {
       "name": "JSON 格式化",
       "desc": "JSON 格式化、压缩、校验、字段提取"
@@ -247,5 +251,33 @@
     "notify": {
       "done": "倒计时结束!"
     }
+  },
+  "qrcodePage": {
+    "input": {
+      "label": "内容",
+      "placeholder": "输入文本或网址"
+    },
+    "options": {
+      "errorLevel": "纠错级别",
+      "size": "尺寸",
+      "margin": "边距",
+      "fg": "前景色",
+      "bg": "背景色"
+    },
+    "errorLevel": {
+      "L": "低",
+      "M": "中",
+      "Q": "较高",
+      "H": "高"
+    },
+    "empty": "输入内容即可生成二维码",
+    "moduleCount": "模块数：{n}×{n}",
+    "action": {
+      "downloadPng": "下载 PNG",
+      "downloadSvg": "下载 SVG",
+      "copy": "复制"
+    },
+    "copied": "已复制到剪贴板",
+    "copyUnsupported": "当前浏览器不支持图片复制,请改用下载"
   }
 }
