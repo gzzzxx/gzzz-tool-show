@@ -36,6 +36,7 @@ export const tools: readonly ToolDefinition[] = [
   { path: '/encryption/SM4', component: () => import('~/views/encryption/encryption.vue'), icon: 'shield',  nameKey: 'tools.sm4.name',      descKey: 'tools.sm4.desc',      category: 'crypto', props: { algorithm: 'SM4' } },
   { path: '/encryption/AES', component: () => import('~/views/encryption/encryption.vue'), icon: 'key',     nameKey: 'tools.aes.name',      descKey: 'tools.aes.desc',      category: 'crypto', props: { algorithm: 'AES' } },
   { path: '/hash',            component: () => import('~/views/hash/hash.vue'),            icon: 'hash',    nameKey: 'tools.hash.name',     descKey: 'tools.hash.desc',     category: 'crypto' },
+  { path: '/password-strength', component: () => import('~/views/password-strength/password-strength.vue'), icon: 'password', nameKey: 'tools.passwordStrength.name', descKey: 'tools.passwordStrength.desc', category: 'crypto' },
   // dev
   { path: '/format',          component: () => import('~/views/json/format.vue'),          icon: 'braces',   nameKey: 'tools.format.name',   descKey: 'tools.format.desc',   category: 'dev' },
   { path: '/sql',             component: () => import('~/views/sql/sql.vue'),              icon: 'database', nameKey: 'tools.sql.name',      descKey: 'tools.sql.desc',      category: 'dev' },

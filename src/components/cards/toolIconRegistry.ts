@@ -174,6 +174,15 @@ export const toolIconRegistry: Record<string, IconRender> = {
     h('rect', { x: 17,   y: 17,   width: 2, height: 2, fill: 'currentColor', stroke: 'none' }),
     h('rect', { x: 19.5, y: 19.5, width: 2, height: 2, fill: 'currentColor', stroke: 'none' }),
   ]),
+
+  // Password — padlock body + U-shape shackle. The "verified
+  // password" reading relies on the latch sitting centered on
+  // the body, distinct from `shield` (SM4, no shackle) and `key`
+  // (AES, asymmetric key with bow + teeth).
+  password: () => h('g', null, [
+    h('rect', { x: 4, y: 11, width: 16, height: 10, rx: 1.5 }),
+    h('path', { d: 'M8 11V7a4 4 0 0 1 8 0v4' }),
+  ]),
 }
 
 /**

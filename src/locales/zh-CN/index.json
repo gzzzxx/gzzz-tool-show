@@ -119,6 +119,10 @@
       "name": "Hash 计算",
       "desc": "MD5 / SHA-1 / SHA-256 / SHA-384 / SHA-512 摘要计算"
     },
+    "passwordStrength": {
+      "name": "密码强度分析",
+      "desc": "本地分析密码强度：长度、字符多样性、熵值、常见模式"
+    },
     "textStats": {
       "name": "文本统计",
       "desc": "字符/词数/行数/段落/中英文字符构成及阅读时间估算"
@@ -279,5 +283,53 @@
     },
     "copied": "已复制到剪贴板",
     "copyUnsupported": "当前浏览器不支持图片复制,请改用下载"
+  },
+  "passwordStrengthPage": {
+    "input": {
+      "label": "密码",
+      "placeholder": "输入要分析的密码",
+      "show": "显示密码",
+      "hide": "隐藏密码"
+    },
+    "score": {
+      "label": "强度评分",
+      "level": {
+        "0": "非常弱",
+        "1": "弱",
+        "2": "中等",
+        "3": "强",
+        "4": "非常强"
+      }
+    },
+    "stats": {
+      "length": "长度",
+      "charset": "字符种类",
+      "entropy": "熵值",
+      "crackTime": "预计破解时间"
+    },
+    "feedback": {
+      "rules": {
+        "length": "长度 ≥ 8",
+        "lengthStrong": "长度 ≥ 12",
+        "lower": "包含小写字母",
+        "upper": "包含大写字母",
+        "digit": "包含数字",
+        "symbol": "包含符号",
+        "noCommon": "不在常见密码列表中",
+        "noRepeat": "无连续重复字符",
+        "noSequential": "无连续字符序列"
+      }
+    },
+    "empty": "请输入密码以分析强度",
+    "crackTime": {
+      "instant": "瞬间",
+      "seconds": "秒",
+      "minutes": "分钟",
+      "hours": "小时",
+      "days": "天",
+      "months": "个月",
+      "years": "年",
+      "centuries": "数百年以上"
+    }
   }
 }

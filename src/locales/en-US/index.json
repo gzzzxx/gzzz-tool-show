@@ -119,6 +119,10 @@
       "name": "Hash Calculator",
       "desc": "MD5 / SHA-1 / SHA-256 / SHA-384 / SHA-512 digests"
     },
+    "passwordStrength": {
+      "name": "Password Strength",
+      "desc": "Local password strength analysis: length, character variety, entropy, common patterns"
+    },
     "textStats": {
       "name": "Text Statistics",
       "desc": "Character/word/line/paragraph counts, CJK vs Latin breakdown, reading time"
@@ -279,5 +283,53 @@
     },
     "copied": "Copied to clipboard",
     "copyUnsupported": "Image copy is not supported in this browser, please download instead"
+  },
+  "passwordStrengthPage": {
+    "input": {
+      "label": "Password",
+      "placeholder": "Enter a password to analyze",
+      "show": "Show password",
+      "hide": "Hide password"
+    },
+    "score": {
+      "label": "Strength score",
+      "level": {
+        "0": "Very weak",
+        "1": "Weak",
+        "2": "Fair",
+        "3": "Strong",
+        "4": "Very strong"
+      }
+    },
+    "stats": {
+      "length": "Length",
+      "charset": "Charset",
+      "entropy": "Entropy",
+      "crackTime": "Crack time"
+    },
+    "feedback": {
+      "rules": {
+        "length": "Length ≥ 8",
+        "lengthStrong": "Length ≥ 12",
+        "lower": "Has lowercase",
+        "upper": "Has uppercase",
+        "digit": "Has digits",
+        "symbol": "Has symbols",
+        "noCommon": "Not in common-password list",
+        "noRepeat": "No repeated characters",
+        "noSequential": "No sequential characters"
+      }
+    },
+    "empty": "Enter a password to analyze",
+    "crackTime": {
+      "instant": "Instant",
+      "seconds": "seconds",
+      "minutes": "minutes",
+      "hours": "hours",
+      "days": "days",
+      "months": "months",
+      "years": "years",
+      "centuries": "Centuries"
+    }
   }
 }
