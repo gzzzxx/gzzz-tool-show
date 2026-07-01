@@ -359,5 +359,29 @@
       "copyEmpty": "Nothing to copy, please format first",
       "copyFailed": "Copy failed, please copy manually"
     }
+  },
+  "sqlPage": {
+    "section": {
+      "source": "Source",
+      "result": "Result"
+    },
+    "input": {
+      "placeholder": "Enter or paste SQL ..."
+    },
+    "result": {
+      "placeholder": "Formatted SQL"
+    },
+    "action": {
+      "format": "Format",
+      "minify": "Minify",
+      "copy": "Copy",
+      "clear": "Clear",
+      "copied": "Copied"
+    },
+    "error": {
+      "empty": "Please enter SQL to format",
+      "copyEmpty": "Nothing to copy, please format first",
+      "copyFailed": "Copy failed, please copy manually"
+    }
   }
 }

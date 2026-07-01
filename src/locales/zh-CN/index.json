@@ -359,5 +359,29 @@
       "copyEmpty": "暂无可复制的内容,请先格式化",
       "copyFailed": "复制失败,请手动复制"
     }
+  },
+  "sqlPage": {
+    "section": {
+      "source": "输入",
+      "result": "结果"
+    },
+    "input": {
+      "placeholder": "请输入或粘贴 SQL 语句 ..."
+    },
+    "result": {
+      "placeholder": "格式化后的 SQL"
+    },
+    "action": {
+      "format": "格式化",
+      "minify": "压缩",
+      "copy": "复制",
+      "clear": "清空",
+      "copied": "复制成功"
+    },
+    "error": {
+      "empty": "请输入要格式化的 SQL",
+      "copyEmpty": "暂无可复制的内容,请先格式化",
+      "copyFailed": "复制失败,请手动复制"
+    }
   }
 }

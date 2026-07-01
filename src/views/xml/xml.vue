@@ -25,12 +25,14 @@
          the user sees what they can do before diving into either
          box. Format / Minify are the page's primary affordances;
          the smaller contextual controls (indent dropdown, clear,
-         copy) live inside each card's header. -->
+         copy) live inside each card's header. Default-size buttons
+         keep the toolbar compact so it doesn't crowd the cards
+         below. -->
     <div class="xml-toolbar">
-      <el-button type="primary" :icon="MagicStick" size="large" @click="format">
+      <el-button type="primary" :icon="MagicStick" @click="format">
         {{ t('xmlPage.action.format') }}
       </el-button>
-      <el-button :icon="Minus" size="large" @click="minify">
+      <el-button :icon="Minus" @click="minify">
         {{ t('xmlPage.action.minify') }}
       </el-button>
     </div>
@@ -348,12 +350,22 @@ watch([() => form.data, indent], () => autoFormat(form.data), { flush: 'post' })
   }
 }
 
-/* Top toolbar */
+/* Top toolbar. Button horizontal padding tightened from the
+   Element Plus default 15px to 10px — for 2-3 char labels the
+   default padding leaves the buttons looking loose, even at
+   default size. */
 .xml-toolbar {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.xml-toolbar :deep(.ep-button) {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+:deep(.ep-select--small .ep-select__wrapper) {
+  min-height: 18px;
 }
 
 @media (max-width: 600px) {
