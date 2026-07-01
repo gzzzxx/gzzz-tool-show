@@ -183,6 +183,16 @@ export const toolIconRegistry: Record<string, IconRender> = {
     h('rect', { x: 4, y: 11, width: 16, height: 10, rx: 1.5 }),
     h('path', { d: 'M8 11V7a4 4 0 0 1 8 0v4' }),
   ]),
+
+  // XML — the universal `</>` glyph: left chevron + diagonal
+  // slash + right chevron. Pairs naturally with `braces` (JSON,
+  // curly brackets) and `database` (SQL); the three together
+  // cover the major text-data formats without colliding.
+  xml: () => h('g', null, [
+    h('path', { d: 'M9 8l-4 4 4 4' }),
+    h('path', { d: 'M15 8l4 4-4 4' }),
+    h('line', { x1: 14, y1: 5, x2: 10, y2: 19 }),
+  ]),
 }
 
 /**

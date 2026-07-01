@@ -107,6 +107,10 @@
       "name": "SQL Formatter",
       "desc": "Format / minify SQL with MySQL, PostgreSQL, SQLite and more"
     },
+    "xml": {
+      "name": "XML Formatter",
+      "desc": "Format / minify XML with configurable indentation (2/4 spaces or tab)"
+    },
     "contrast": {
       "name": "Code Diff",
       "desc": "Text/code diff with multi-language syntax highlight"
@@ -330,6 +334,30 @@
       "months": "months",
       "years": "years",
       "centuries": "Centuries"
+    }
+  },
+  "xmlPage": {
+    "section": {
+      "source": "Source",
+      "result": "Result"
+    },
+    "input": {
+      "placeholder": "Enter or paste XML ..."
+    },
+    "result": {
+      "placeholder": "Formatted XML"
+    },
+    "action": {
+      "format": "Format",
+      "minify": "Minify",
+      "copy": "Copy",
+      "clear": "Clear",
+      "copied": "Copied"
+    },
+    "error": {
+      "empty": "Please enter XML to format",
+      "copyEmpty": "Nothing to copy, please format first",
+      "copyFailed": "Copy failed, please copy manually"
     }
   }
 }

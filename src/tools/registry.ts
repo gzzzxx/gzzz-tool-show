@@ -40,6 +40,7 @@ export const tools: readonly ToolDefinition[] = [
   // dev
   { path: '/format',          component: () => import('~/views/json/format.vue'),          icon: 'braces',   nameKey: 'tools.format.name',   descKey: 'tools.format.desc',   category: 'dev' },
   { path: '/sql',             component: () => import('~/views/sql/sql.vue'),              icon: 'database', nameKey: 'tools.sql.name',      descKey: 'tools.sql.desc',      category: 'dev' },
+  { path: '/xml',             component: () => import('~/views/xml/xml.vue'),              icon: 'xml',      nameKey: 'tools.xml.name',      descKey: 'tools.xml.desc',      category: 'dev' },
   { path: '/contrast',        component: () => import('~/views/contrast/contrast.vue'),    icon: 'diff',     nameKey: 'tools.contrast.name', descKey: 'tools.contrast.desc', category: 'dev' },
   { path: '/text-stats',      component: () => import('~/views/text-stats/text-stats.vue'),  icon: 'bar',      nameKey: 'tools.textStats.name', descKey: 'tools.textStats.desc', category: 'dev' },
   { path: '/crontab',         component: () => import('~/views/crontab/crontab.vue'),        icon: 'cron',     nameKey: 'tools.crontab.name',   descKey: 'tools.crontab.desc',   category: 'dev' },

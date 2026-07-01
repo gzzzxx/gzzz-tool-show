@@ -107,6 +107,10 @@
       "name": "SQL 格式化",
       "desc": "SQL 美化与压缩,支持 MySQL/PostgreSQL/SQLite 等多种方言"
     },
+    "xml": {
+      "name": "XML 格式化",
+      "desc": "XML 美化与压缩,可配置缩进(2/4 空格或 Tab)"
+    },
     "contrast": {
       "name": "代码对比",
       "desc": "文本/代码 diff,支持多种语言高亮"
@@ -330,6 +334,30 @@
       "months": "个月",
       "years": "年",
       "centuries": "数百年以上"
+    }
+  },
+  "xmlPage": {
+    "section": {
+      "source": "输入",
+      "result": "结果"
+    },
+    "input": {
+      "placeholder": "请输入或粘贴 XML ..."
+    },
+    "result": {
+      "placeholder": "格式化后的 XML"
+    },
+    "action": {
+      "format": "格式化",
+      "minify": "压缩",
+      "copy": "复制",
+      "clear": "清空",
+      "copied": "复制成功"
+    },
+    "error": {
+      "empty": "请输入要格式化的 XML",
+      "copyEmpty": "暂无可复制的内容,请先格式化",
+      "copyFailed": "复制失败,请手动复制"
     }
   }
 }
