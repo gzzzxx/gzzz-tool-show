@@ -448,5 +448,51 @@
       "exampleEncodedIntro": "After Base64 encoding, it becomes:",
       "manEncoded": "Encoding \"Man\" produces TWFu. Here's the conversion process:"
     }
+  },
+  "encryptionPage": {
+    "section": {
+      "content": "Content & Key",
+      "config": "Config",
+      "algorithmIntro": "Algorithm",
+      "concept": "Concepts"
+    },
+    "field": {
+      "data": "Plaintext / Ciphertext",
+      "key": "Key",
+      "iv": "IV",
+      "result": "Result",
+      "dataType": "Input format",
+      "resultType": "Output format",
+      "keyType": "Key / IV format",
+      "mode": "Cipher mode"
+    },
+    "placeholder": {
+      "data": "Enter text to encrypt or decrypt",
+      "key": "Encryption key",
+      "iv": "Initialization vector",
+      "result": "Encrypted or decrypted result"
+    },
+    "option": {
+      "textDecodedAsBase64": "Text (decoded as Base64)",
+      "textEncryptedAsBase64": "Text (encoded as Base64)",
+      "base64": "Base64",
+      "hex": "Hex",
+      "ecb": "ECB",
+      "cbc": "CBC",
+      "ctr": "CTR"
+    },
+    "action": {
+      "encrypt": "Encrypt",
+      "decrypt": "Decrypt",
+      "copy": "Copy result",
+      "clear": "Clear"
+    },
+    "message": {
+      "encryptSuccess": "Encrypted",
+      "decryptSuccess": "Decrypted",
+      "copySuccess": "Copied",
+      "copyFailed": "Copy failed, please copy manually",
+      "error": "Operation failed"
+    }
   }
 }

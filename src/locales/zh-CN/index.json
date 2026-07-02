@@ -448,5 +448,51 @@
       "exampleEncodedIntro": "使用 Base64 编码之后变成：",
       "manEncoded": "编码 \"Man\" 的结果为 TWFu，转换过程如下："
     }
+  },
+  "encryptionPage": {
+    "section": {
+      "content": "内容与密钥",
+      "config": "配置",
+      "algorithmIntro": "算法介绍",
+      "concept": "相关概念"
+    },
+    "field": {
+      "data": "加密/解密内容",
+      "key": "密钥",
+      "iv": "向量IV",
+      "result": "加密/解密结果",
+      "dataType": "加密/解密内容数据格式",
+      "resultType": "加密/解密结果数据格式",
+      "keyType": "密钥/IV数据格式",
+      "mode": "加密模式"
+    },
+    "placeholder": {
+      "data": "加密/解密内容",
+      "key": "密钥",
+      "iv": "向量IV",
+      "result": "加密/解密结果"
+    },
+    "option": {
+      "textDecodedAsBase64": "文本（解密为Base64）",
+      "textEncryptedAsBase64": "文本（加密为Base64）",
+      "base64": "Base64",
+      "hex": "十六进制",
+      "ecb": "ECB",
+      "cbc": "CBC",
+      "ctr": "CTR"
+    },
+    "action": {
+      "encrypt": "加密",
+      "decrypt": "解密",
+      "copy": "复制结果",
+      "clear": "清空"
+    },
+    "message": {
+      "encryptSuccess": "加密成功",
+      "decryptSuccess": "解密成功",
+      "copySuccess": "复制成功",
+      "copyFailed": "复制失败,请手动复制",
+      "error": "处理失败"
+    }
   }
 }
