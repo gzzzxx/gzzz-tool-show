@@ -419,5 +419,34 @@
     "action": {
       "clear": "清空"
     }
+  },
+  "base64Page": {
+    "section": {
+      "source": "输入",
+      "result": "结果"
+    },
+    "input": {
+      "placeholder": "编码/解码内容"
+    },
+    "result": {
+      "placeholder": "编码/解码结果"
+    },
+    "action": {
+      "encode": "编码",
+      "decode": "解码",
+      "copy": "复制",
+      "clear": "清空",
+      "copied": "已复制"
+    },
+    "error": {
+      "copyFailed": "复制失败,请手动复制"
+    },
+    "reference": {
+      "title": "Base64 编码说明",
+      "tableTitle": "Base64 编码表",
+      "exampleIntro": "举例来说，一段引用自托马斯·霍布斯《利维坦》的文本：",
+      "exampleEncodedIntro": "使用 Base64 编码之后变成：",
+      "manEncoded": "编码 \"Man\" 的结果为 TWFu，转换过程如下："
+    }
   }
 }
