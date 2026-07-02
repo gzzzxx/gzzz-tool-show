@@ -395,5 +395,29 @@
     "result": {
       "placeholder": "格式化后的 JSON"
     }
+  },
+  "contrastPage": {
+    "section": {
+      "prev": "原始内容",
+      "current": "对比内容",
+      "result": "对比结果"
+    },
+    "input": {
+      "placeholder": {
+        "prev": "当前的 ...",
+        "current": "待对比 ..."
+      }
+    },
+    "options": {
+      "type": "类型",
+      "mode": "模式",
+      "modeSplit": "对比",
+      "modeUnified": "合并",
+      "folding": "折叠未更改",
+      "foldingHint": "折叠连续无差异的行"
+    },
+    "action": {
+      "clear": "清空"
+    }
   }
 }

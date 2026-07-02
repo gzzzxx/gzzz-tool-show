@@ -395,5 +395,29 @@
     "result": {
       "placeholder": "Formatted JSON"
     }
+  },
+  "contrastPage": {
+    "section": {
+      "prev": "Original",
+      "current": "Compared",
+      "result": "Diff"
+    },
+    "input": {
+      "placeholder": {
+        "prev": "Current ...",
+        "current": "To compare ..."
+      }
+    },
+    "options": {
+      "type": "Language",
+      "mode": "Mode",
+      "modeSplit": "Split",
+      "modeUnified": "Unified",
+      "folding": "Fold unchanged",
+      "foldingHint": "Fold consecutive identical lines"
+    },
+    "action": {
+      "clear": "Clear"
+    }
   }
 }
