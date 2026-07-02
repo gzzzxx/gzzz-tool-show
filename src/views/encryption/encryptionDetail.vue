@@ -35,11 +35,6 @@
     <div class="enc-grid">
       <!-- ===== Left card: content + key + IV + result ===== -->
       <section class="enc-card enc-card--main">
-        <header class="enc-card__header">
-          <span class="enc-card__title">
-            {{ t('encryptionPage.section.content') }}
-          </span>
-        </header>
         <div class="enc-card__body">
           <div class="enc-field">
             <label class="enc-field__label">
@@ -96,11 +91,6 @@
 
       <!-- ===== Right card: 4 config selects + 4 buttons ===== -->
       <section class="enc-card enc-card--config">
-        <header class="enc-card__header">
-          <span class="enc-card__title">
-            {{ t('encryptionPage.section.config') }}
-          </span>
-        </header>
         <div class="enc-card__body">
           <div class="enc-field">
             <label class="enc-field__label">
@@ -207,17 +197,16 @@
       </section>
     </div>
 
-    <!-- ============== Info cards ============== -->
+    <!-- ============== Info blocks (no card headers — intro prose
+         stands on its own, no need for a separate section title) ============== -->
     <section class="enc-info">
       <div class="enc-info__card">
-        <header class="enc-info__header">
-          <span class="enc-info__title">
-            {{ t('encryptionPage.section.algorithmIntro') }}
-          </span>
-        </header>
         <div class="enc-info__body">
           <p class="enc-info__para">
-            <strong>{{ props.algorithm }}.0</strong>
+            <strong>算法介绍</strong>
+          </p>
+          <p class="enc-info__para">
+            <strong>SM4.0</strong>
             <span>（原名SMS4.0）是一种</span>
             <span class="enc-info__term">分组密码</span>
             <span>标准，由</span>
@@ -242,12 +231,10 @@
       </div>
 
       <div class="enc-info__card">
-        <header class="enc-info__header">
-          <span class="enc-info__title">
-            {{ t('encryptionPage.section.concept') }}
-          </span>
-        </header>
         <div class="enc-info__body">
+          <p class="enc-info__para">
+            <strong>相关概念</strong>
+          </p>
           <p class="enc-info__para">
             <span>在</span>
             <span class="enc-info__term">密码学</span>
@@ -369,9 +356,12 @@ function clear() {
   }
 }
 
-/* Card + header — same chrome family as sql-card / xml-card /
-   c-card / base64-card. Plain section (not el-card) so we keep
-   full control over border + radius. */
+/* Card — same chrome family as sql-card / xml-card / c-card /
+   base64-card (elevated bg + 1px border + 4px radius). No header
+   strip — the form fields' own labels carry the chrome role, and
+   the info blocks' prose stands on its own without a separate
+   title bar. Plain section (not el-card) so we keep full control
+   over border + radius. */
 .enc-card {
   display: flex;
   flex-direction: column;
@@ -380,22 +370,8 @@ function clear() {
   border-radius: 4px;
   overflow: hidden;
 }
-.enc-card__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 16px;
-  border-bottom: 1px solid var(--it-border);
-  background-color: var(--it-bg-elevated);
-}
-.enc-card__title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--it-text-primary);
-}
 .enc-card__body {
-  padding: 16px 20px 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -452,8 +428,9 @@ function clear() {
 
 /* ====================================================================
    Info cards — full-width strips below the form grid. Same chrome
-   as .enc-card; the body uses the same typography pattern as
-   base64.vue's reference card.
+   as .enc-card; no header strip here either, the prose stands on
+   its own. Body uses the same typography pattern as base64.vue's
+   reference card.
    ==================================================================== */
 .enc-info {
   margin-top: 16px;
@@ -467,20 +444,8 @@ function clear() {
   border-radius: 4px;
   overflow: hidden;
 }
-.enc-info__header {
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  border-bottom: 1px solid var(--it-border);
-  background-color: var(--it-bg-elevated);
-}
-.enc-info__title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--it-text-primary);
-}
 .enc-info__body {
-  padding: 16px 20px 20px;
+  padding: 20px;
   font-size: 14px;
   line-height: 1.7;
   color: var(--it-text-primary);
@@ -518,8 +483,7 @@ function clear() {
 }
 
 @media (max-width: 600px) {
-  .enc-info__body { padding: 12px 14px 16px; }
-  .enc-card__header { padding: 10px 12px; }
-  .enc-card__body { padding: 14px 16px 16px; }
+  .enc-info__body { padding: 14px 16px; }
+  .enc-card__body { padding: 14px 16px; }
 }
 </style>

@@ -450,12 +450,6 @@
     }
   },
   "encryptionPage": {
-    "section": {
-      "content": "内容与密钥",
-      "config": "配置",
-      "algorithmIntro": "算法介绍",
-      "concept": "相关概念"
-    },
     "field": {
       "data": "加密/解密内容",
       "key": "密钥",

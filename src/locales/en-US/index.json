@@ -450,12 +450,6 @@
     }
   },
   "encryptionPage": {
-    "section": {
-      "content": "Content & Key",
-      "config": "Config",
-      "algorithmIntro": "Algorithm",
-      "concept": "Concepts"
-    },
     "field": {
       "data": "Plaintext / Ciphertext",
       "key": "Key",
